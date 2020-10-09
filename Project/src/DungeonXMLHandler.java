@@ -63,6 +63,8 @@ public class DungeonXMLHandler extends DefaultHandler {
             int room = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Monster monster = new Monster();
+            monster.setName(name);
+            monster.setId(room, serial);
             dungeon.addCreature(monster);
             
         } else if (qName.equalsIgnoreCase("Armor")) {
