@@ -1,6 +1,6 @@
 package src;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -11,10 +11,6 @@ public class DungeonXMLHandler extends DefaultHandler {
     private StringBuilder data = null;
 
     private Dungeon dungeon;
-
-    private ArrayList<Room> rooms;
-    private ArrayList<Passage> passages;
-    private ArrayList<Creature> creatures;
 
     private boolean bPosX = false;
     private boolean bPosY = false;
@@ -30,10 +26,6 @@ public class DungeonXMLHandler extends DefaultHandler {
     private boolean bItemIntValue = false;
     private boolean bActionCharValue = false;
 
-    private Room roomBeingParsed = null;
-    private Passage passageBeingParsed = null;
-    private Creature creatureBeingParsed = null;
-    private Item itemBeingParsed = null;
     private Displayable objectBeingParsed = null;
     private Action actionBeingParsed = null;
 
@@ -56,7 +48,6 @@ public class DungeonXMLHandler extends DefaultHandler {
             String id = attributes.getValue("room");
             Room room = new Room(id);
             dungeon.addRoom(room);
-            roomBeingParsed = room;
             objectBeingParsed = room;
 
         } else if (qName.equalsIgnoreCase("Passages")) {
@@ -67,18 +58,16 @@ public class DungeonXMLHandler extends DefaultHandler {
             Passage passage = new Passage();
             dungeon.addPassage(passage);
             passage.setId(room1, room2);
-            passageBeingParsed = passage;
             objectBeingParsed = passage;
 
         } else if (qName.equalsIgnoreCase("Player")) {
-            String name = attributes.getValue("name");
+            //String name = attributes.getValue("name");
             int room = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Player player = new Player();
             player.room = room;
             player.serial = serial;
             dungeon.addCreature(player);
-            creatureBeingParsed = player;
             objectBeingParsed = player;
 
         } else if (qName.equalsIgnoreCase("Monster")) {
@@ -89,7 +78,6 @@ public class DungeonXMLHandler extends DefaultHandler {
             monster.setName(name);
             monster.setId(room, serial);
             dungeon.addCreature(monster);
-            creatureBeingParsed = monster;
             objectBeingParsed = monster;
             
         } else if (qName.equalsIgnoreCase("Armor")) {
