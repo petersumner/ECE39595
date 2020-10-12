@@ -2,7 +2,7 @@ package src;
 
 public class Hallucinate extends ItemAction {
     
-    public Hallucinate(Creature owner){
+    public Hallucinate(Item owner){
         super(owner);
     }
 }

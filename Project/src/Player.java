@@ -15,11 +15,11 @@ public class Player extends Creature {
     
     public void setWeapon(Sword _sword){
         sword = _sword;
-        System.out.println("setWeapon: " + sword.name);
+        System.out.println("   weapon: " + sword.name);
     }
 
     public void setArmor(Armor _armor){
         armor = _armor;
-        System.out.println("setArmor: " + armor.name);
+        System.out.println("   armor: " + armor.name);
     }
 }

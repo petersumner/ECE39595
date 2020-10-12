@@ -8,7 +8,10 @@ public class Sword extends Item {
     
     public Sword(String _name){
         name = _name;
+        System.out.println("Sword:\n   name: " + name);
     }
 
-    public void setId(int room, int serial){}
+    public void setId(int room, int serial){
+        System.out.println("   room: " + room + "\n   serial: " + serial);
+    }
 }

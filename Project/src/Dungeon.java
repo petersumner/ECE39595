@@ -15,24 +15,25 @@ public class Dungeon {
     }
 
     public void addRoom(Room room){
-        System.out.println("Room: \n   room: " + room.name + "\n   posX: " + room.posX + "\n   posY: " + room.posY + "\n   width: " + room.width + "\n   height: " + room.height);
+        System.out.println("Room: \n   room: " + room.name);
     }
 
     public void addCreature(Creature creature){
         if (creature instanceof Monster){
             Monster monster = (Monster)creature;
-            System.out.println("Monster: \n   name: " + monster.name + "\n   room: " + monster.room + "\n   serial: " + monster.serial + "\n   posX: " + "\n   posY: " + "\n   type: " + "\n   hp: " + "\n   maxHit: ");
+            System.out.println("Monster: \n   name: " + monster.name + "\n   room: " + monster.room + "\n   serial: " + monster.serial);
         } else if (creature instanceof Player){
-            System.out.println("Player: \n   name: " + "\n   room: " + "\n   serial: " + "\n   posX: " + "\n   posY: " + "\n   hp: " + "\n   maxHit: " + "\n   hpMoves: ");
+            Player player = (Player)creature;
+            System.out.println("Player: \n   name: Player\n   room: " + player.room + "\n   serial: " + player.serial);
         }
     }
 
     public void addPassage(Passage passage){
-        System.out.println("Passage:\n");
+        System.out.println("Passage: ");
     }
 
     public void addItem(Item item){
-        System.out.println("Item:\n");
+        System.out.println("Item: ");
     }
     
 }
