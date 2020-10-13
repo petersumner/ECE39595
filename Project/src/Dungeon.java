@@ -27,11 +27,9 @@ public class Dungeon {
     }
 
     public void addPassage(Passage passage){
-        System.out.println("Passage: ");
     }
 
     public void addItem(Item item){
-        System.out.println("Item: ");
     }
     
 }
