@@ -56,12 +56,11 @@ public class DungeonXMLHandler extends DefaultHandler {
             int room1 = Integer.parseInt(attributes.getValue("room1"));
             int room2 = Integer.parseInt(attributes.getValue("room2"));
             Passage passage = new Passage();
-            dungeon.addPassage(passage);
             passage.setId(room1, room2);
+            dungeon.addPassage(passage);
             objectBeingParsed = passage;
 
         } else if (qName.equalsIgnoreCase("Player")) {
-            //String name = attributes.getValue("name");
             int room = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Player player = new Player();
