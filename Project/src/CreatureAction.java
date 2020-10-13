@@ -2,10 +2,12 @@ package src;
 
 public class CreatureAction extends Action {
 
+    public Creature owner;
     public String name;
     public String type;
     
-    public CreatureAction(Creature owner){
+    public CreatureAction(Creature _owner){
+        owner = _owner;
         System.out.println("CreatureAction:");
     }
 

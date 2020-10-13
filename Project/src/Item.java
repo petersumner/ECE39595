@@ -2,6 +2,10 @@ package src;
 
 public class Item extends Displayable {
 
-    public void setOwner(Creature owner){}
+    public Creature owner;
+
+    public void setOwner(Creature _owner){
+        owner = _owner;
+    }
     
 }

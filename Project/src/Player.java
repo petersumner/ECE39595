@@ -12,6 +12,10 @@ public class Player extends Creature {
     public int hp = 0;
     public int maxHit = 0;
     public int hpMoves = 0;
+
+    public Player(){
+        System.out.println("Player:");
+    }
     
     public void setWeapon(Sword _sword){
         sword = _sword;

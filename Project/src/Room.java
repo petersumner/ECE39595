@@ -8,13 +8,13 @@ public class Room extends Structure {
     public int width = 0;
     public int height = 0;
     
-    public Room(String room){
+    public Room(String room){        
         name = room;    
+        System.out.println("Room:\n   room: " + name);
     }
 
     public void setId(String room){
         name = room;
-        System.out.println("   room: " + name);
     }
 
     public void setCreature(Creature monster){}
