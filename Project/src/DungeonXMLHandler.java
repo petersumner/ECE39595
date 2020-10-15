@@ -28,6 +28,7 @@ public class DungeonXMLHandler extends DefaultHandler {
 
     private Displayable objectBeingParsed = null;
     private Action actionBeingParsed = null;
+    private Creature creatureBeingParsed = null;
 
     public Dungeon getDungeon() {
         return dungeon;
@@ -67,6 +68,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             player.room = room;
             player.serial = serial;
             dungeon.addCreature(player);
+            creatureBeingParsed = player;
             objectBeingParsed = player;
 
         } else if (qName.equalsIgnoreCase("Monster")) {
@@ -77,6 +79,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             monster.setName(name);
             monster.setId(room, serial);
             dungeon.addCreature(monster);
+            creatureBeingParsed = monster;
             objectBeingParsed = monster;
             
         } else if (qName.equalsIgnoreCase("Armor")) {
@@ -106,7 +109,7 @@ public class DungeonXMLHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("CreatureAction")) {
             String name = attributes.getValue("name");
             String type = attributes.getValue("type");
-            CreatureAction action = new CreatureAction((Creature)objectBeingParsed);
+            CreatureAction action = new CreatureAction((Creature)creatureBeingParsed);
             action.setName(name);
             action.setType(type);
             actionBeingParsed = action;
