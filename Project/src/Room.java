@@ -17,6 +17,8 @@ public class Room extends Structure {
         name = room;
     }
 
-    public void setCreature(Creature monster){}
+    public void setCreature(Creature monster){
+        
+    }
 
 }

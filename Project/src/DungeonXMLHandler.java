@@ -48,8 +48,8 @@ public class DungeonXMLHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("Room")) {
             String id = attributes.getValue("room");
             Room room = new Room(id);
-            dungeon.addRoom(room);
             objectBeingParsed = room;
+            dungeon.addRoom(room);
 
         } else if (qName.equalsIgnoreCase("Passages")) {
             
