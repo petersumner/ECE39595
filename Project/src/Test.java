@@ -30,8 +30,6 @@ public class Test {
             DungeonXMLHandler handler = new DungeonXMLHandler();
             saxParser.parse(new File(fileName), handler);
 
-            //Dungeon dungeon = handler.getDungeon();
-
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace(System.out);
         }
