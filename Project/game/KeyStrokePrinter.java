@@ -34,6 +34,12 @@ public class KeyStrokePrinter implements InputObserver, Runnable {
                 processing = false;
             } else {
                 ch = inputQueue.poll();
+                if(ch == 'X'){
+                    System.out.println("got an X, ending input checking");
+                    return false;
+                } else {
+                    System.out.println("character " + ch + " entered on keyboard");
+                }
             }
         }
         return true;

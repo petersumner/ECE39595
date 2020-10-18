@@ -20,7 +20,6 @@ public class Rogue implements Runnable {
                     displayGrid.addObjectToDisplay(new Char('X'), i, j);
                 }
             }
-
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {

@@ -21,7 +21,17 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         height = _height;
 
         terminal = new AsciiPanel(width, height);
+        objectGrid = new Char[width][height];
+        initializeDisplay();
 
+        super.add(terminal);
+        super.setSize(width*9, height*16);
+        super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        super.setVisible(true);
+        terminal.setVisible(true);
+        super.addKeyListener(this);
+        inputObservers = new ArrayList<>();
+        super.repaint();
     }
 
     @Override
