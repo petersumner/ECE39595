@@ -15,6 +15,10 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
         terminal = new AsciiPanel(width, height);
 
-        
+    }
+
+    @Override
+    public void registerInputObserver(InputObserver observer){
+        InputObservers.add(observer);
     }
 }
