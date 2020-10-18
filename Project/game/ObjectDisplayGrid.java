@@ -43,4 +43,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
     @Override
     public void keyReleased(KeyEvent e){}
+
+    public final void initializeDisplay(){
+        Char ch = new Char('.');
+    }
 }
