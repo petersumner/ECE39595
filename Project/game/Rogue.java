@@ -5,10 +5,15 @@ public class Rogue implements Runnable {
     private static ObjectDisplayGrid displayGrid = null;
     private static final int WIDTH = 80;
     private static final int HEIGHT = 40;
+    private Thread keyStrokePrinter;
+
+    public Rogue(int width, int height){
+        displayGrid = new ObjectDisplayGrid(width, height);
+    }
 
     @Override
     public void run() {
-        displayGrid.fireUP();
+        displayGrid.fireUp();
         for(int step = 1; step < WIDTH/2; step *= 2){
             for(int i = 0; i < WIDTH; i += step) {
                 for(int j = 0; j < HEIGHT; j += step) {
@@ -25,9 +30,14 @@ public class Rogue implements Runnable {
         }
     }
 
-    public static void main(String args[]){
-        
-
+    public static void main(String args[]) throws Exception {
+        Rogue game = new Rogue(WIDTH, HEIGHT);
+        Thread thread = new Thread(game);
+        thread.start();
+        game.keyStrokePrinter = new Thread(new KeyStrokePrinter(displayGrid));
+        game.keyStrokePrinter.start();
+        thread.join();
+        game.keyStrokePrinter.join();
     }
     
 }
