@@ -6,9 +6,11 @@ public class Rogue implements Runnable {
     private static final int WIDTH = 80;
     private static final int HEIGHT = 40;
     private Thread keyStrokePrinter;
+    String filename = null;
 
     public Rogue(int width, int height){
         displayGrid = new ObjectDisplayGrid(width, height);
+        filename = "src/xmlFiles/dungeon.xml";
     }
 
     @Override
