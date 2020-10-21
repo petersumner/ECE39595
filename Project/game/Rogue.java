@@ -1,5 +1,14 @@
 package game;
 
+import src.*;
+import java.io.File;
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+
+import org.xml.sax.SAXException;
+
 public class Rogue implements Runnable {
 
     private static ObjectDisplayGrid displayGrid = null;
@@ -11,7 +20,18 @@ public class Rogue implements Runnable {
     public Rogue(int width, int height){
         displayGrid = new ObjectDisplayGrid(width, height);
         filename = "src/xmlFiles/dungeon.xml";
+
+        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+
+        try {
+            SAXParser saxParser = saxParserFactory.newSAXParser();
+            DungeonXMLHandler handler = new DungeonXMLHandler();
+            saxParser.parse(new File(filename), handler);
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace(System.out);
+        }
     }
+    
 
     @Override
     public void run() {
