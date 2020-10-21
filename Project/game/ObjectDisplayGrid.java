@@ -10,7 +10,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
     private static final long serialVersionUID = -3705248120375555442L;
 
-    private static final int DEBUG = 0;
     private static final String CLASSID = ".ObjectDisplayGrid";
 
     private static AsciiPanel terminal;
@@ -45,17 +44,11 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
     @Override
     public void registerInputObserver(InputObserver observer) {
-        if (DEBUG > 0) {
-            System.out.println(CLASSID + ".registerInputObserver " + observer.toString());
-        }
         inputObservers.add(observer);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (DEBUG > 0) {
-            System.out.println(CLASSID + ".keyTyped entered" + e.toString());
-        }
         KeyEvent keypress = (KeyEvent) e;
         notifyInputObservers(keypress.getKeyChar());
     }
@@ -63,9 +56,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
     private void notifyInputObservers(char ch) {
         for (InputObserver observer : inputObservers) {
             observer.observerUpdate(ch);
-            if (DEBUG > 0) {
-                System.out.println(CLASSID + ".notifyInputObserver " + ch);
-            }
         }
     }
 
