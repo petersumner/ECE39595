@@ -17,7 +17,6 @@ public class Dungeon {
         name = _name;
         width = _width;
         gameHeight = _gameHeight;
-
         System.out.println("Dungeon: \n   name: " + name + "\n   width: " + width + "\n   gameHeight: " + gameHeight);
     }
 
