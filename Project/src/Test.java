@@ -25,7 +25,7 @@ public class Test {
 
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 
-        try{
+        try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
             DungeonXMLHandler handler = new DungeonXMLHandler();
             saxParser.parse(new File(fileName), handler);
