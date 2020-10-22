@@ -10,7 +10,7 @@ public class DungeonXMLHandler extends DefaultHandler {
     
     private StringBuilder data = null;
 
-    private Dungeon dungeon;
+    public Dungeon dungeon;
 
     private boolean bPosX = false;
     private boolean bPosY = false;
