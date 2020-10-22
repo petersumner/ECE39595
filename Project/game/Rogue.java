@@ -17,6 +17,8 @@ public class Rogue implements Runnable {
     private Thread keyStrokePrinter;
     private static final int WIDTH = 80;
     private static final int HEIGHT = 40;
+    public static Dungeon dungeon;
+    public static DungeonXMLHandler handler;
 
     public Rogue(int width, int height) {
         displayGrid = new ObjectDisplayGrid(width, height);
@@ -46,13 +48,13 @@ public class Rogue implements Runnable {
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
-            DungeonXMLHandler handler = new DungeonXMLHandler();
+            handler = new DungeonXMLHandler();
             saxParser.parse(new File(fileName), handler);
 
         } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace(System.out);
         }
-
+        dungeon = handler.dungeon;
         Rogue rogue = new Rogue(WIDTH, HEIGHT);
         Thread rogueThread = new Thread(rogue);
         rogueThread.start();
