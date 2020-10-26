@@ -28,6 +28,7 @@ public class Rogue implements Runnable {
     @Override
     public void run() {
         displayGrid.fireUp();
+        System.out.println("display");
         for(int i=0; i<dungeon.creatures.size(); i++){
             if(dungeon.creatures.get(i).getClass() == Player.class){
                 displayGrid.addObjectToDisplay(new Char('@'), dungeon.creatures.get(i).posX, dungeon.creatures.get(i).posY);
@@ -41,26 +42,7 @@ public class Rogue implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace(System.err);
             }
-        }
-        
-        displayGrid.initializeDisplay();
-        
-        /*
-        for (int step = 1; step < WIDTH / 2; step *= 2) {
-            for (int i = 0; i < WIDTH; i += step) {
-                for (int j = 0; j < HEIGHT; j += step) {
-                    displayGrid.addObjectToDisplay(new Char('X'), i, j);
-                }
-            }
-            
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                e.printStackTrace(System.err);
-            }
-            
-            displayGrid.initializeDisplay();
-        }*/
+        }    
     }
 
     public static void main(String[] args) throws Exception {
