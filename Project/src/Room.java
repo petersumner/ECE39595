@@ -3,10 +3,10 @@ package src;
 public class Room extends Structure {
 
     public String name;
-    public int posX = 0;
-    public int posY = 0;
-    public int width = 0;
-    public int height = 0;
+    public int posX;
+    public int posY;
+    public int width;
+    public int height;
     
     public Room(String room){        
         name = room;    
@@ -20,5 +20,4 @@ public class Room extends Structure {
     public void setCreature(Creature monster){
         
     }
-
 }
