@@ -3,7 +3,7 @@ package src;
 public class Room extends Structure {
 
     public String name;
-    public int posX;
+    public int posX = 8;
     public int posY;
     public int width;
     public int height;

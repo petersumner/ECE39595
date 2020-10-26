@@ -29,6 +29,12 @@ public class Rogue implements Runnable {
     public void run() {
         displayGrid.fireUp();
         System.out.println("display");
+        for(int i=0; i<dungeon.rooms.size(); i++){
+            System.out.println(dungeon.rooms.get(i).posX);
+            for(int j=0; j<dungeon.rooms.get(i).width; j++){
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX, dungeon.rooms.get(i).posY);
+            }
+        }
         for(int i=0; i<dungeon.creatures.size(); i++){
             if(dungeon.creatures.get(i).getClass() == Player.class){
                 displayGrid.addObjectToDisplay(new Char('@'), dungeon.creatures.get(i).posX, dungeon.creatures.get(i).posY);
