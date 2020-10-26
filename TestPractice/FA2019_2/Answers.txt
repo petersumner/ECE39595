@@ -1,0 +1,22 @@
+19. Base Derived
+20. Base(i) Derived(i)
+21. 1 1
+22. Err
+23. bar(int) B:foo
+24. bar(Base) B:foo
+25. Base:f1
+26. Der:f1
+27. Base:f2
+28. Err
+29. Err
+30. Der:f1
+31. Base:f2
+32. Der:f3
+33. Err
+34. Err
+35. Err
+36. Ok
+37. foo
+38. Err
+39. Ok
+40. Err
