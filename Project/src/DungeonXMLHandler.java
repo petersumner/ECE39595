@@ -158,7 +158,6 @@ public class DungeonXMLHandler extends DefaultHandler {
         Action action = actionBeingParsed;
         if (bPosX) {
             object.setPosX(Integer.parseInt(data.toString()));
-            System.out.println("HERE PosX: " + object.posX);
             bPosX = false;
         } else if (bPosY) {
             object.setPosY(Integer.parseInt(data.toString()));
