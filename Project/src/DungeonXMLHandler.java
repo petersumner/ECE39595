@@ -156,7 +156,6 @@ public class DungeonXMLHandler extends DefaultHandler {
     public void endElement(String uri, String localName, String qName) throws SAXException {
         Displayable object = objectBeingParsed;
         Action action = actionBeingParsed;
-        System.out.println(object);
         if (bPosX) {
             object.setPosX(Integer.parseInt(data.toString()));
             System.out.println("HERE PosX: " + object.posX);
