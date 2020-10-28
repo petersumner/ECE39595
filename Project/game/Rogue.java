@@ -13,7 +13,7 @@ public class Rogue implements Runnable {
     public static final int FRAMESPERSECOND = 60;
     public static final int TIMEPERLOOP = 1000000000 / FRAMESPERSECOND;
     private static ObjectDisplayGrid displayGrid = null;
-    private Thread keyStrokePrinter;
+    //private Thread keyStrokePrinter;
     public static Dungeon dungeon;
     public static DungeonXMLHandler handler;
 
@@ -66,10 +66,10 @@ public class Rogue implements Runnable {
         Thread rogueThread = new Thread(rogue);
         rogueThread.start();
 
-        rogue.keyStrokePrinter = new Thread(new KeyStrokePrinter(displayGrid));
-        rogue.keyStrokePrinter.start();
+        //rogue.keyStrokePrinter = new Thread(new KeyStrokePrinter(displayGrid));
+        //rogue.keyStrokePrinter.start();
 
         rogueThread.join();
-        rogue.keyStrokePrinter.join();
+        //rogue.keyStrokePrinter.join();
     }
 }
