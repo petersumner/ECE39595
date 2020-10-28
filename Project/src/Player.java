@@ -5,13 +5,13 @@ public class Player extends Creature {
     public Sword sword;
     public Armor armor;
     public String name = "Player";
-    public int room = 0;
-    public int serial = 0;
-    public int posX = 0;
-    public int posY = 0;
-    public int hp = 0;
-    public int maxHit = 0;
-    public int hpMoves = 0;
+    public int room;
+    public int serial;
+    public int posX;
+    public int posY;
+    public int hp;
+    public int maxHit;
+    public int hpMoves;
 
     public Player(){
         System.out.println("Player:");
