@@ -48,8 +48,8 @@ public class DungeonXMLHandler extends DefaultHandler {
         } else if (qName.equalsIgnoreCase("Room")) {
             String id = attributes.getValue("room");
             Room room = new Room(id);
-            objectBeingParsed = room;
             dungeon.addRoom(room);
+            objectBeingParsed = room;
 
         } else if (qName.equalsIgnoreCase("Passages")) {
             
@@ -62,10 +62,10 @@ public class DungeonXMLHandler extends DefaultHandler {
             objectBeingParsed = passage;
 
         } else if (qName.equalsIgnoreCase("Player")) {
-            int room = Integer.parseInt(attributes.getValue("room"));
+            int roomNum = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Player player = new Player();
-            player.room = room;
+            player.room = roomNum;
             player.serial = serial;
             dungeon.addCreature(player);
             creatureBeingParsed = player;
@@ -73,37 +73,37 @@ public class DungeonXMLHandler extends DefaultHandler {
 
         } else if (qName.equalsIgnoreCase("Monster")) {
             String name = attributes.getValue("name");
-            int room = Integer.parseInt(attributes.getValue("room"));
+            int roomNum = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Monster monster = new Monster();
             monster.setName(name);
-            monster.setId(room, serial);
+            monster.setId(roomNum, serial);
             dungeon.addCreature(monster);
             creatureBeingParsed = monster;
             objectBeingParsed = monster;
             
         } else if (qName.equalsIgnoreCase("Armor")) {
             String name = attributes.getValue("name");
-            int room = Integer.parseInt(attributes.getValue("room"));
+            int roomNum = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Armor armor = new Armor(name);
-            armor.setId(room, serial);
+            armor.setId(roomNum, serial);
             objectBeingParsed = armor;
 
         } else if (qName.equalsIgnoreCase("Sword")) {
             String name = attributes.getValue("name");
-            int room = Integer.parseInt(attributes.getValue("room"));
+            int roomNum = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Sword sword = new Sword(name);
-            sword.setId(room, serial);
+            sword.setId(roomNum, serial);
             objectBeingParsed = sword;
 
         } else if (qName.equalsIgnoreCase("Scroll")) {
             String name = attributes.getValue("name");
-            int room = Integer.parseInt(attributes.getValue("room"));
+            int roomNum = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Scroll scroll = new Scroll(name);
-            scroll.setId(room, serial);
+            scroll.setId(roomNum, serial);
             objectBeingParsed = scroll;
         
         } else if (qName.equalsIgnoreCase("CreatureAction")) {
@@ -158,6 +158,7 @@ public class DungeonXMLHandler extends DefaultHandler {
         Action action = actionBeingParsed;
         if (bPosX) {
             object.setPosX(Integer.parseInt(data.toString()));
+            System.out.println("HERE PosX: " + object.posX);
             bPosX = false;
         } else if (bPosY) {
             object.setPosY(Integer.parseInt(data.toString()));
@@ -197,8 +198,6 @@ public class DungeonXMLHandler extends DefaultHandler {
             action.setCharValue(data.charAt(0));
             bActionCharValue = false;
         }
-        object = null;
-        action = null;
     }
 
     @Override
