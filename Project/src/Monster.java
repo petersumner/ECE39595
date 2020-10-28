@@ -5,8 +5,6 @@ public class Monster extends Creature {
     public String name;
     public int room;
     public int serial;
-    public int posX;
-    public int posY;
     public char type;
 
     public Monster(){
