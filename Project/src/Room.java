@@ -3,13 +3,9 @@ package src;
 public class Room extends Structure {
 
     public String name;
-    public int posX;
-    public int posY;
-    public int width;
-    public int height;
     
     public Room(String room){        
-        name = room;    
+        name = room;
         System.out.println("Room:\n   room: " + name);
     }
 
