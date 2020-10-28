@@ -42,7 +42,7 @@ public class KeyStrokePrinter implements InputObserver, Runnable {
                 processing = false;
             } else {
                 ch = inputQueue.poll();
-                if (DEBUG > 1) {
+                if (DEBUG > 0) {
                     System.out.println(CLASSID + ".processInput peek is " + ch);
                 }
                 if (ch == 'X') {
