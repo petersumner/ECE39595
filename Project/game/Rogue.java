@@ -16,7 +16,6 @@ public class Rogue implements Runnable {
     private Thread keyStrokePrinter;
     public static Dungeon dungeon;
     public static DungeonXMLHandler handler;
-    public char ch;
 
     public Rogue(int width, int height) {
         displayGrid = new ObjectDisplayGrid(width, height);
@@ -44,10 +43,11 @@ public class Rogue implements Runnable {
                 displayGrid.addObjectToDisplay(new Char('@'), dungeon.creatures.get(i).posX, dungeon.creatures.get(i).posY);
             }
             else{
-                ch = dungeon.creatures.get(i).type;
-                displayGrid.addObjectToDisplay(new Char(ch), dungeon.creatures.get(i).posX, dungeon.creatures.get(i).posY);
+                displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), dungeon.creatures.get(i).posX, dungeon.creatures.get(i).posY);
             }
         }    
+
+        // Display Items
     }
 
     public static void main(String[] args) throws Exception {
