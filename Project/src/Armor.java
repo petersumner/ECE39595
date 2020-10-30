@@ -3,7 +3,6 @@ package src;
 public class Armor extends Item {
     
     public String name;
-    public int room;
     public int serial;
 
     public Armor(String _name){

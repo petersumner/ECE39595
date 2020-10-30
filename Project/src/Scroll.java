@@ -3,7 +3,6 @@ package src;
 public class Scroll extends Item {
 
     public String name;
-    public int room;
     public int serial;
     
     public Scroll(String _name){
