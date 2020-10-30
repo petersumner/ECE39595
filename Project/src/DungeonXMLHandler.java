@@ -88,6 +88,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Armor armor = new Armor(name);
             armor.setId(roomNum, serial);
+            dungeon.addItem(armor);
             objectBeingParsed = armor;
 
         } else if (qName.equalsIgnoreCase("Sword")) {
@@ -96,6 +97,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Sword sword = new Sword(name);
             sword.setId(roomNum, serial);
+            dungeon.addItem(sword);
             objectBeingParsed = sword;
 
         } else if (qName.equalsIgnoreCase("Scroll")) {
@@ -104,6 +106,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Scroll scroll = new Scroll(name);
             scroll.setId(roomNum, serial);
+            dungeon.addItem(scroll);
             objectBeingParsed = scroll;
         
         } else if (qName.equalsIgnoreCase("CreatureAction")) {
