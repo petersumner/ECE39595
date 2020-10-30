@@ -28,25 +28,23 @@ public class Rogue implements Runnable {
         // Display Walls
         for(int i=0; i<dungeon.rooms.size(); i++){
             for(int j=0; j<dungeon.rooms.get(i).width; j++){
-                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX+j, dungeon.rooms.get(i).posY-1);
-                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX+j, dungeon.rooms.get(i).posY+dungeon.rooms.get(i).height-2);
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX+j, dungeon.rooms.get(i).posY);
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX+j, dungeon.rooms.get(i).posY+dungeon.rooms.get(i).height-1);
             }
             for(int j=1; j<dungeon.rooms.get(i).height-1; j++){
-                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX, dungeon.rooms.get(i).posY+j-1);
-                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX+dungeon.rooms.get(i).width-1, dungeon.rooms.get(i).posY+j-1);
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX, dungeon.rooms.get(i).posY+j);
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX+dungeon.rooms.get(i).width-1, dungeon.rooms.get(i).posY+j);
                 for(int k=1; k<dungeon.rooms.get(i).width-1; k++){
-                    displayGrid.addObjectToDisplay(new Char('.'), dungeon.rooms.get(i).posX+k, dungeon.rooms.get(i).posY+j-1);
+                    displayGrid.addObjectToDisplay(new Char('.'), dungeon.rooms.get(i).posX+k, dungeon.rooms.get(i).posY+j);
                 }
             }
         }
 
         // Display Creatures
-        System.out.println(dungeon.creatures);
         for(int i=0; i<dungeon.creatures.size(); i++){
             int room = dungeon.creatures.get(i).room-1;
-            System.out.println(room);
-            int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX+1;
-            int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY+1;
+            int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
             if(dungeon.creatures.get(i).getClass() == Player.class){
                 displayGrid.addObjectToDisplay(new Char('@'), x, y);
             }
@@ -59,7 +57,7 @@ public class Rogue implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "src/xmlFiles/dungeon.xml";
+        String fileName = "src/xmlFiles/death.xml";
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
