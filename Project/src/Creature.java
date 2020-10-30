@@ -6,6 +6,7 @@ public class Creature extends Displayable {
     public int hpm;
     public CreatureAction da;
     public ItemAction ha;
+    public int room;
 
     public Creature(){}
 
@@ -27,5 +28,9 @@ public class Creature extends Displayable {
     public void setHitAction(ItemAction _ha){
         ha = _ha;
         System.out.println("   itemAction:" + ha);
+    }
+
+    public void setRoom(int _room){
+        room = _room;
     }
 }
