@@ -65,7 +65,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             int roomNum = Integer.parseInt(attributes.getValue("room"));
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Player player = new Player();
-            player.room = roomNum;
+            player.setRoom(roomNum);
             player.serial = serial;
             dungeon.addCreature(player);
             creatureBeingParsed = player;
