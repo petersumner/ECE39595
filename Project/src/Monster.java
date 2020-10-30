@@ -3,11 +3,10 @@ package src;
 public class Monster extends Creature {
 
     public String name;
-    public int room;
     public int serial;
     public char type;
 
-    public Monster(){
+    public Monster() {
         System.out.println("Mosnter:");
     }
 
