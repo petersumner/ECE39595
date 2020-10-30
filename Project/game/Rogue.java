@@ -47,13 +47,24 @@ public class Rogue implements Runnable {
             int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
             if(dungeon.creatures.get(i).getClass() == Player.class){
                 displayGrid.addObjectToDisplay(new Char('@'), x, y);
-            }
-            else{
+            } else{
                 displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y);
             }
         }    
 
         // Display Items
+        for(int i=0; i<dungeon.items.size(); i++){
+            int room = dungeon.items.get(i).room-1;
+            int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
+            if(dungeon.items.get(i).getClass() == Scroll.class){
+                displayGrid.addObjectToDisplay(new Char('?'), x, y);
+            } else if(dungeon.items.get(i).getClass() == Armor.class){
+                displayGrid.addObjectToDisplay(new Char(']'), x, y);
+            } else if(dungeon.items.get(i).getClass() == Sword.class){
+                displayGrid.addObjectToDisplay(new Char(')'), x, y);
+            }
+        }
     }
 
     public static void main(String[] args) throws Exception {
