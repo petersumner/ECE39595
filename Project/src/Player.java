@@ -5,7 +5,6 @@ public class Player extends Creature {
     public Sword sword;
     public Armor armor;
     public String name = "Player";
-    public int room;
     public int serial;
     public int hp;
     public int maxHit;
