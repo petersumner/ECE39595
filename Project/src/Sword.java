@@ -3,7 +3,6 @@ package src;
 public class Sword extends Item {
 
     public String name;
-    public int room;
     public int serial;
     
     public Sword(String _name){
