@@ -26,7 +26,6 @@ public class Dungeon {
 
     public void addCreature(Creature creature){
         creatures.add(creature);
-        }
     }
 
     public void addPassage(Passage passage){
