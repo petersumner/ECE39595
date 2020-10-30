@@ -68,7 +68,7 @@ public class Rogue implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "src/xmlFiles/death.xml";
+        String fileName = "src/xmlFiles/testDrawing.xml";
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
