@@ -71,8 +71,9 @@ public class Rogue implements Runnable {
             Passage passage = dungeon.passages.get(i);
             int x = passage.xArr[0];
             int y = passage.yArr[0];
+            int j;
             displayGrid.addObjectToDisplay(new Char('+'), x, y);
-            for(int j=0; j<passage.idx; j++) {
+            for(j=0; j<passage.idx; j++) {
                 if(x == passage.xArr[j+1]) {
                     int k = 1;
                     if(k < passage.yArr[j+1]-y) {
@@ -93,7 +94,7 @@ public class Rogue implements Runnable {
                 x = passage.xArr[j+1];
                 y = passage.yArr[j+1];
             }
-            displayGrid.addObjectToDisplay(new Char('+'), x, y);
+            displayGrid.addObjectToDisplay(new Char('+'), passage.xArr[j-1], passage.yArr[j-1]);
         }
     }
 
