@@ -73,9 +73,6 @@ public class Rogue implements Runnable {
             int y = passage.yArr[0];
             displayGrid.addObjectToDisplay(new Char('+'), x, y);
             for(int j=0; j<passage.idx; j++) {
-                System.out.print(passage.xArr[j]);
-                System.out.print(' ');
-                System.out.println(passage.yArr[j]);
                 if(x == passage.xArr[j+1]) {
                     int k = 1;
                     if(k < passage.yArr[j+1]-y) {
