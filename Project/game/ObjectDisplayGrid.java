@@ -1,5 +1,7 @@
 package game;
 
+import src.*;
+
 import asciiPanel.AsciiPanel;
 import javax.swing.*;
 import java.awt.event.*;
@@ -20,7 +22,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
     private static int height;
     private static int width;
 
-    public ObjectDisplayGrid(int _width, int _height) {
+    public ObjectDisplayGrid(int _width, int _height, Dungeon dungeon) {
         width = _width;
         height = _height;
 
