@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class KeyListenerTest implements KeyListener, ActionListener {
+public class KeyListenerTest implements KeyListener {
     
     JFrame frame;
     JTextField tf;
@@ -21,7 +21,6 @@ public class KeyListenerTest implements KeyListener, ActionListener {
         tf = new JTextField();
         tf.addKeyListener(this);
         btn = new JButton("Clear");
-        btn.addActionListener(this);
         JPanel panel = new JPanel();
         panel.add(tf);
         panel.add(btn);
@@ -47,11 +46,6 @@ public class KeyListenerTest implements KeyListener, ActionListener {
     @Override
     public void keyReleased(KeyEvent e) {
         lbl.setText("You released: " + e.getKeyCode());
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        tf.setText("");
     }
 
     public static void main(String args[]){
