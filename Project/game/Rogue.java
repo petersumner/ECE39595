@@ -85,25 +85,6 @@ public class Rogue extends Canvas implements Runnable {
             }
         }
 
-        // Display Creatures
-        for (int i = 0; i < dungeon.creatures.size(); i++) {
-            int room = dungeon.creatures.get(i).room - 1;
-            int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
-            int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
-            if (dungeon.creatures.get(i).getClass() == Player.class) { displayGrid.addObjectToDisplay(new Char('@'), x, y); } 
-            else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
-        }
-
-        // Display Items
-        for (int i = 0; i < dungeon.items.size(); i++) {
-            int room = dungeon.items.get(i).room - 1;
-            int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
-            int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
-            if (dungeon.items.get(i).getClass() == Scroll.class) { displayGrid.addObjectToDisplay(new Char('?'), x, y); } 
-            else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
-            else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
-        }
-
         // Display Passages
         for (int i = 0; i < dungeon.passages.size(); i++) {
             Passage passage = dungeon.passages.get(i);
@@ -127,6 +108,25 @@ public class Rogue extends Canvas implements Runnable {
                 y = passage.yArr[j + 1];
             }
             displayGrid.addObjectToDisplay(new Char('+'), passage.xArr[j - 1], passage.yArr[j - 1]);
+        }
+
+        // Display Creatures
+        for (int i = 0; i < dungeon.creatures.size(); i++) {
+            int room = dungeon.creatures.get(i).room - 1;
+            int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
+            if (dungeon.creatures.get(i).getClass() == Player.class) { displayGrid.addObjectToDisplay(new Char('@'), x, y); } 
+            else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
+        }
+
+        // Display Items
+        for (int i = 0; i < dungeon.items.size(); i++) {
+            int room = dungeon.items.get(i).room - 1;
+            int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
+            if (dungeon.items.get(i).getClass() == Scroll.class) { displayGrid.addObjectToDisplay(new Char('?'), x, y); } 
+            else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
+            else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
         }
         try { Thread.sleep(20); } 
         catch (InterruptedException e) { e.printStackTrace(System.err); }
