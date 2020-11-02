@@ -11,7 +11,7 @@ import java.util.List;
 public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubject {
 
     private static final long serialVersionUID = -3705248120375555442L;
-    private static final int DEBUG = 1;
+    private static final int DEBUG = 0;
     private static final String CLASSID = ".ObjectDisplayGrid";
 
     private static AsciiPanel terminal;
@@ -21,10 +21,12 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
     private static int height;
     private static int width;
+    private Dungeon dungeon;
 
-    public ObjectDisplayGrid(int _width, int _height, Dungeon dungeon) {
+    public ObjectDisplayGrid(int _width, int _height, Dungeon _dungeon) {
         width = _width;
         height = _height;
+        dungeon = _dungeon;
 
         terminal = new AsciiPanel(width, height);
 
@@ -58,7 +60,26 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
             System.out.println(CLASSID + ".keyTyped entered" + e.toString());
         }
         KeyEvent keypress = (KeyEvent) e;
+        char key = keypress.getKeyChar();
         notifyInputObservers(keypress.getKeyChar());
+        for(int i=0; i<dungeon.creatures.size(); i++){
+            if(dungeon.creatures.get(i).getClass() == Player.class){
+                Player temp = (Player) dungeon.creatures.get(i);
+                if(key == 'j') { 
+                    temp.setPosY(temp.posY + 1); 
+                }
+                if(key == 'k') { 
+                    temp.setPosY(temp.posY - 1); 
+                }
+                if(key == 'h') { 
+                    temp.setPosX(temp.posX - 1); 
+                }
+                if(key == 'l') { 
+                    temp.setPosX(temp.posX + 1); 
+                }
+            }
+        }
+        
     }
 
     private void notifyInputObservers(char ch) {
