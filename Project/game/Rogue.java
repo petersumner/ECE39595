@@ -12,21 +12,65 @@ import org.xml.sax.SAXException;
 
 public class Rogue extends Canvas implements Runnable {
 
+    private static final long serialVersionUID = 3297052250187212136L;
+
     public static final int FRAMESPERSECOND = 60;
     public static final int TIMEPERLOOP = 1000000000 / FRAMESPERSECOND;
     private static ObjectDisplayGrid displayGrid = null;
-    //private Thread keyStrokePrinter;
-    public static Dungeon dungeon;
-    public static DungeonXMLHandler handler;
+    private boolean running = false;
+    private Thread thread;
+    private static Dungeon dungeon;
+    private static DungeonXMLHandler handler;
 
     public Rogue(int width, int height) {
         displayGrid = new ObjectDisplayGrid(width, height);
+        this.start();
     }
 
-    @Override
-    public void run() {
+    public synchronized void start(){
+        thread = new Thread(this);
+        thread.start();
+        running = true;
+    }
+
+    public synchronized void stop(){
+        try{
+            thread.join();
+            running = false;
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void run(){
+        this.requestFocus();
+        long lastTime = System.nanoTime();
+        double delta = 0;
+        long timer = System.currentTimeMillis();
+        while(running){
+            long now = System.nanoTime();
+            delta += (now - lastTime) / TIMEPERLOOP;
+            lastTime = now;
+            while(delta >= 1){
+                //tick();
+                delta--;
+            }
+            if(running)
+                display();
+
+            if(System.currentTimeMillis() - timer > 1000){
+                timer += 1000;
+            }
+        }
+        stop();
+    }
+
+    public void display() {
+
         displayGrid.fireUp();
-        while(true){
+
+        while(true) {
+
             // Display Walls
             for (int i = 0; i < dungeon.rooms.size(); i++) {
                 for (int j = 0; j < dungeon.rooms.get(i).width; j++) {
@@ -36,11 +80,9 @@ public class Rogue extends Canvas implements Runnable {
                 }
                 for (int j = 1; j < dungeon.rooms.get(i).height - 1; j++) {
                     displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX, dungeon.rooms.get(i).posY + j);
-                    displayGrid.addObjectToDisplay(new Char('X'),
-                            dungeon.rooms.get(i).posX + dungeon.rooms.get(i).width - 1, dungeon.rooms.get(i).posY + j);
+                    displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + dungeon.rooms.get(i).width - 1, dungeon.rooms.get(i).posY + j);
                     for (int k = 1; k < dungeon.rooms.get(i).width - 1; k++) {
-                        displayGrid.addObjectToDisplay(new Char('.'), dungeon.rooms.get(i).posX + k,
-                                dungeon.rooms.get(i).posY + j);
+                        displayGrid.addObjectToDisplay(new Char('.'), dungeon.rooms.get(i).posX + k, dungeon.rooms.get(i).posY + j);
                     }
                 }
             }
@@ -50,11 +92,8 @@ public class Rogue extends Canvas implements Runnable {
                 int room = dungeon.creatures.get(i).room - 1;
                 int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
                 int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
-                if (dungeon.creatures.get(i).getClass() == Player.class) {
-                    displayGrid.addObjectToDisplay(new Char('@'), x, y);
-                } else {
-                    displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y);
-                }
+                if (dungeon.creatures.get(i).getClass() == Player.class) { displayGrid.addObjectToDisplay(new Char('@'), x, y); } 
+                else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
             }
 
             // Display Items
@@ -62,13 +101,9 @@ public class Rogue extends Canvas implements Runnable {
                 int room = dungeon.items.get(i).room - 1;
                 int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
                 int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
-                if (dungeon.items.get(i).getClass() == Scroll.class) {
-                    displayGrid.addObjectToDisplay(new Char('?'), x, y);
-                } else if (dungeon.items.get(i).getClass() == Armor.class) {
-                    displayGrid.addObjectToDisplay(new Char(']'), x, y);
-                } else if (dungeon.items.get(i).getClass() == Sword.class) {
-                    displayGrid.addObjectToDisplay(new Char(')'), x, y);
-                }
+                if (dungeon.items.get(i).getClass() == Scroll.class) { displayGrid.addObjectToDisplay(new Char('?'), x, y); } 
+                else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
+                else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
             }
 
             // Display Passages
@@ -121,14 +156,6 @@ public class Rogue extends Canvas implements Runnable {
             e.printStackTrace(System.out);
         }
         dungeon = handler.dungeon;
-        Rogue rogue = new Rogue(dungeon.width, dungeon.gameHeight);
-        Thread rogueThread = new Thread(rogue);
-        rogueThread.start();
-
-        //rogue.keyStrokePrinter = new Thread(new KeyStrokePrinter(displayGrid));
-        //rogue.keyStrokePrinter.start();
-
-        rogueThread.join();
-        //rogue.keyStrokePrinter.join();
+        new Rogue(dungeon.width, dungeon.gameHeight);
     }
 }
