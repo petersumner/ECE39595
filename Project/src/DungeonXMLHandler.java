@@ -123,6 +123,8 @@ public class DungeonXMLHandler extends DefaultHandler {
             ItemAction action = new ItemAction((Item)objectBeingParsed);
             action.setName(name);
             action.setType(type);
+            actionBeingParsed = action;
+            
         } else if (qName.equalsIgnoreCase("posX")) {
             bPosX = true;
         } else if (qName.equalsIgnoreCase("posY")) {
