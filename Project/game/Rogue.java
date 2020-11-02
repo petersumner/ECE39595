@@ -37,12 +37,12 @@ public class Rogue extends Canvas implements Runnable {
         try{
             thread.join();
             running = false;
-        }catch(Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void run(){
+    public void run() {
         this.requestFocus();
         long lastTime = System.nanoTime();
         double delta = 0;
@@ -51,7 +51,7 @@ public class Rogue extends Canvas implements Runnable {
             long now = System.nanoTime();
             delta += (now - lastTime) / TIMEPERLOOP;
             lastTime = now;
-            while(delta >= 1){
+            while(delta >= 1) {
                 //tick();
                 delta--;
             }
@@ -75,8 +75,7 @@ public class Rogue extends Canvas implements Runnable {
             for (int i = 0; i < dungeon.rooms.size(); i++) {
                 for (int j = 0; j < dungeon.rooms.get(i).width; j++) {
                     displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + j, dungeon.rooms.get(i).posY);
-                    displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + j,
-                            dungeon.rooms.get(i).posY + dungeon.rooms.get(i).height - 1);
+                    displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + j, dungeon.rooms.get(i).posY + dungeon.rooms.get(i).height - 1);
                 }
                 for (int j = 1; j < dungeon.rooms.get(i).height - 1; j++) {
                     displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX, dungeon.rooms.get(i).posY + j);
@@ -117,30 +116,21 @@ public class Rogue extends Canvas implements Runnable {
                     if (x == passage.xArr[j + 1]) {
                         int k = 1;
                         if (k < passage.yArr[j + 1] - y) {
-                            while (k <= passage.yArr[j + 1] - y) {
-                                displayGrid.addObjectToDisplay(new Char('#'), x, y + k++);
-                            }
+                            while (k <= passage.yArr[j + 1] - y) { displayGrid.addObjectToDisplay(new Char('#'), x, y + k++); }
                         } else {
-                            while (k > passage.yArr[j + 1] - y) {
-                                displayGrid.addObjectToDisplay(new Char('#'), x, y - 1 + k--);
-                            }
+                            while (k > passage.yArr[j + 1] - y) { displayGrid.addObjectToDisplay(new Char('#'), x, y - 1 + k--); }
                         }
                     } else {
                         int k = 1;
-                        while (k <= passage.xArr[j + 1] - x) {
-                            displayGrid.addObjectToDisplay(new Char('#'), x + k++, y);
-                        }
+                        while (k <= passage.xArr[j + 1] - x) { displayGrid.addObjectToDisplay(new Char('#'), x + k++, y); }
                     }
                     x = passage.xArr[j + 1];
                     y = passage.yArr[j + 1];
                 }
                 displayGrid.addObjectToDisplay(new Char('+'), passage.xArr[j - 1], passage.yArr[j - 1]);
             }
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace(System.err);
-            }
+            try { Thread.sleep(2000); } 
+            catch (InterruptedException e) { e.printStackTrace(System.err); }
         }
     }
 
