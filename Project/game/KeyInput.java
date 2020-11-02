@@ -9,27 +9,25 @@ public class KeyInput extends KeyAdapter {
 
     public int key;
     private Dungeon dungeon;
-    private Player player;
     
-    public KeyInput(Dungeon _dungeon){
-        this.dungeon = _dungeon;
-        for(int i=0; i<dungeon.creatures.size(); i++){
-            if(dungeon.creatures.get(i).getClass() == Player.class){
-                player = (Player) dungeon.creatures.get(i);
-            }
-        }
+    public KeyInput(Dungeon dungeon){
+        this.dungeon = dungeon;
     }
 
-    @Override
     public void keyPressed(KeyEvent e){
         key = e.getKeyCode();
         System.out.println(key);  
-        if(key == KeyEvent.VK_J){
-            player.setPosY(player.posY + 1);
-        }            
+        for(int i = 0; i < dungeon.creatures.size(); i++){
+            Creature temp = dungeon.creatures.get(i);
+
+            if(temp.getClass() == Player.class){
+                if (key == KeyEvent.VK_J) { temp.setPosY(temp.posY + 1); }
+
+            }
+        }
+                  
     }
 
-    @Override
     public void keyReleased(KeyEvent e){
         key = 0;
     }

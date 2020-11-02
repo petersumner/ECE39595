@@ -24,6 +24,7 @@ public class Rogue extends Canvas implements Runnable {
 
     public Rogue(int width, int height) {
         displayGrid = new ObjectDisplayGrid(width, height);
+        this.addKeyListener(new KeyInput(dungeon));
         this.start();
     }
 
@@ -69,68 +70,63 @@ public class Rogue extends Canvas implements Runnable {
 
         displayGrid.fireUp();
 
-        while(true) {
-
-            // Display Walls
-            for (int i = 0; i < dungeon.rooms.size(); i++) {
-                for (int j = 0; j < dungeon.rooms.get(i).width; j++) {
-                    displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + j, dungeon.rooms.get(i).posY);
-                    displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + j, dungeon.rooms.get(i).posY + dungeon.rooms.get(i).height - 1);
-                }
-                for (int j = 1; j < dungeon.rooms.get(i).height - 1; j++) {
-                    displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX, dungeon.rooms.get(i).posY + j);
-                    displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + dungeon.rooms.get(i).width - 1, dungeon.rooms.get(i).posY + j);
-                    for (int k = 1; k < dungeon.rooms.get(i).width - 1; k++) {
-                        displayGrid.addObjectToDisplay(new Char('.'), dungeon.rooms.get(i).posX + k, dungeon.rooms.get(i).posY + j);
-                    }
+        // Display Walls
+        for (int i = 0; i < dungeon.rooms.size(); i++) {
+            for (int j = 0; j < dungeon.rooms.get(i).width; j++) {
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + j, dungeon.rooms.get(i).posY);
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + j, dungeon.rooms.get(i).posY + dungeon.rooms.get(i).height - 1);
+            }
+            for (int j = 1; j < dungeon.rooms.get(i).height - 1; j++) {
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX, dungeon.rooms.get(i).posY + j);
+                displayGrid.addObjectToDisplay(new Char('X'), dungeon.rooms.get(i).posX + dungeon.rooms.get(i).width - 1, dungeon.rooms.get(i).posY + j);
+                for (int k = 1; k < dungeon.rooms.get(i).width - 1; k++) {
+                    displayGrid.addObjectToDisplay(new Char('.'), dungeon.rooms.get(i).posX + k, dungeon.rooms.get(i).posY + j);
                 }
             }
+        }
 
-            // Display Creatures
-            for (int i = 0; i < dungeon.creatures.size(); i++) {
-                int room = dungeon.creatures.get(i).room - 1;
-                int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
-                int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
-                if (dungeon.creatures.get(i).getClass() == Player.class) { displayGrid.addObjectToDisplay(new Char('@'), x, y); } 
-                else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
-            }
+        // Display Creatures
+        for (int i = 0; i < dungeon.creatures.size(); i++) {
+            int room = dungeon.creatures.get(i).room - 1;
+            int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
+            if (dungeon.creatures.get(i).getClass() == Player.class) { displayGrid.addObjectToDisplay(new Char('@'), x, y); } 
+            else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
+        }
 
-            // Display Items
-            for (int i = 0; i < dungeon.items.size(); i++) {
-                int room = dungeon.items.get(i).room - 1;
-                int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
-                int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
-                if (dungeon.items.get(i).getClass() == Scroll.class) { displayGrid.addObjectToDisplay(new Char('?'), x, y); } 
-                else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
-                else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
-            }
+        // Display Items
+        for (int i = 0; i < dungeon.items.size(); i++) {
+            int room = dungeon.items.get(i).room - 1;
+            int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
+            if (dungeon.items.get(i).getClass() == Scroll.class) { displayGrid.addObjectToDisplay(new Char('?'), x, y); } 
+            else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
+            else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
+        }
 
-            // Display Passages
-            for (int i = 0; i < dungeon.passages.size(); i++) {
-                Passage passage = dungeon.passages.get(i);
-                int x = passage.xArr[0];
-                int y = passage.yArr[0];
-                int j;
-                displayGrid.addObjectToDisplay(new Char('+'), x, y);
-                for (j = 0; j < passage.idx; j++) {
-                    if (x == passage.xArr[j + 1]) {
-                        int k = 1;
-                        if (k < passage.yArr[j + 1] - y) {
-                            while (k <= passage.yArr[j + 1] - y) { displayGrid.addObjectToDisplay(new Char('#'), x, y + k++); }
-                        } else {
-                            while (k > passage.yArr[j + 1] - y) { displayGrid.addObjectToDisplay(new Char('#'), x, y - 1 + k--); }
-                        }
+        // Display Passages
+        for (int i = 0; i < dungeon.passages.size(); i++) {
+            Passage passage = dungeon.passages.get(i);
+            int x = passage.xArr[0];
+            int y = passage.yArr[0];
+            int j;
+            displayGrid.addObjectToDisplay(new Char('+'), x, y);
+            for (j = 0; j < passage.idx; j++) {
+                if (x == passage.xArr[j + 1]) {
+                    int k = 1;
+                    if (k < passage.yArr[j + 1] - y) {
+                        while (k <= passage.yArr[j + 1] - y) { displayGrid.addObjectToDisplay(new Char('#'), x, y + k++); }
                     } else {
-                        int k = 1;
-                        while (k <= passage.xArr[j + 1] - x) { displayGrid.addObjectToDisplay(new Char('#'), x + k++, y); }
+                        while (k > passage.yArr[j + 1] - y) { displayGrid.addObjectToDisplay(new Char('#'), x, y - 1 + k--); }
                     }
-                    x = passage.xArr[j + 1];
-                    y = passage.yArr[j + 1];
+                } else {
+                    int k = 1;
+                    while (k <= passage.xArr[j + 1] - x) { displayGrid.addObjectToDisplay(new Char('#'), x + k++, y); }
                 }
-                displayGrid.addObjectToDisplay(new Char('+'), passage.xArr[j - 1], passage.yArr[j - 1]);
+                x = passage.xArr[j + 1];
+                y = passage.yArr[j + 1];
             }
-            try { Thread.sleep(2000); } 
-            catch (InterruptedException e) { e.printStackTrace(System.err); }
+            displayGrid.addObjectToDisplay(new Char('+'), passage.xArr[j - 1], passage.yArr[j - 1]);
         }
     }
 
