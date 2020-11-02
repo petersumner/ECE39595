@@ -29,13 +29,7 @@
                 <CreatureAction name="YouWin" type="death">
                     <actionMessage>You have killed me!  The game is over!</actionMessage>
                     <actionIntValue>5</actionIntValue>
-                </CreatureAction>
-                <Sword name="+10 Sword" room="1" serial="3">                                                                                 
-                    <visible>1</visible>                                                                                                    
-                    <posX>5</posX>                                                                                                          
-                    <posY>2</posY>                                                                                                          
-                    <ItemIntValue>10</ItemIntValue>                                                                                     
-                </Sword>  
+                </CreatureAction> 
             </Player>
         </Room>
     </Rooms>
