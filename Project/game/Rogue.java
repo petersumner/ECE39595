@@ -23,8 +23,8 @@ public class Rogue extends Canvas implements Runnable {
     private static DungeonXMLHandler handler;
 
     public Rogue(int width, int height) {
-        displayGrid = new ObjectDisplayGrid(width, height);
-        this.addKeyListener(new KeyInput(dungeon));
+        displayGrid = new ObjectDisplayGrid(width, height, dungeon);
+        //this.addKeyListener(new KeyInput(dungeon));
         this.start();
     }
 
@@ -68,7 +68,7 @@ public class Rogue extends Canvas implements Runnable {
 
     public void display() {
 
-        displayGrid.fireUp();
+        //displayGrid.fireUp();
 
         // Display Walls
         for (int i = 0; i < dungeon.rooms.size(); i++) {
@@ -128,6 +128,8 @@ public class Rogue extends Canvas implements Runnable {
             }
             displayGrid.addObjectToDisplay(new Char('+'), passage.xArr[j - 1], passage.yArr[j - 1]);
         }
+        try { Thread.sleep(20); } 
+        catch (InterruptedException e) { e.printStackTrace(System.err); }
     }
 
     public static void main(String[] args) throws Exception {
