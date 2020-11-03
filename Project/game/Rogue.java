@@ -66,6 +66,8 @@ public class Rogue extends Canvas implements Runnable {
 
     public void display() {
 
+        int hp = 0; 
+
         // Display Walls
         for (int i = 0; i < dungeon.rooms.size(); i++) {
             for (int j = 0; j < dungeon.rooms.get(i).width; j++) {
@@ -110,7 +112,10 @@ public class Rogue extends Canvas implements Runnable {
         for (int i = 0; i < dungeon.creatures.size(); i++) {
             int x = dungeon.creatures.get(i).posX;
             int y = dungeon.creatures.get(i).posY;
-            if (dungeon.creatures.get(i).getClass() == Player.class) { displayGrid.addObjectToDisplay(new Char('@'), x, y); } 
+            if (dungeon.creatures.get(i).getClass() == Player.class) { 
+                hp = dungeon.creatures.get(i).hp;
+                displayGrid.addObjectToDisplay(new Char('@'), x, y); 
+            } 
             else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
         }
 
@@ -125,30 +130,20 @@ public class Rogue extends Canvas implements Runnable {
         }
 
         // Display HUD
-        displayGrid.addObjectToDisplay(new Char('H'), 0, -2);
-        displayGrid.addObjectToDisplay(new Char('P'), 1, -2);
-        displayGrid.addObjectToDisplay(new Char(':'), 2, -2);
+        displayString("HP: "+Integer.toString(hp), 0, -2);
+        displayString("core:  0", 8, -2);
 
-        displayGrid.addObjectToDisplay(new Char('c'), 8, -2);
-        displayGrid.addObjectToDisplay(new Char('o'), 9, -2);
-        displayGrid.addObjectToDisplay(new Char('r'), 10, -2);
-        displayGrid.addObjectToDisplay(new Char('e'), 11, -2);
-        displayGrid.addObjectToDisplay(new Char(':'), 12, -2);
-
-        displayGrid.addObjectToDisplay(new Char('P'), 0, dungeon.gameHeight - 2);
-        displayGrid.addObjectToDisplay(new Char('a'), 1, dungeon.gameHeight - 2);
-        displayGrid.addObjectToDisplay(new Char('c'), 2, dungeon.gameHeight - 2);
-        displayGrid.addObjectToDisplay(new Char('k'), 3, dungeon.gameHeight - 2);
-        displayGrid.addObjectToDisplay(new Char(':'), 4, dungeon.gameHeight - 2);
-
-        displayGrid.addObjectToDisplay(new Char('I'), 0, dungeon.gameHeight);
-        displayGrid.addObjectToDisplay(new Char('n'), 1, dungeon.gameHeight);
-        displayGrid.addObjectToDisplay(new Char('f'), 2, dungeon.gameHeight);
-        displayGrid.addObjectToDisplay(new Char('o'), 3, dungeon.gameHeight);
-        displayGrid.addObjectToDisplay(new Char(':'), 4, dungeon.gameHeight);
+        displayString("Pack: ", 0, dungeon.gameHeight - 2);
+        displayString("Info: ", 0, dungeon.gameHeight);
 
         try { Thread.sleep(20); } 
         catch (InterruptedException e) { e.printStackTrace(System.err); }
+    }
+
+    public void displayString(String msg, int x, int y){
+        for(int i=0; i<msg.length(); i++){
+            displayGrid.addObjectToDisplay(new Char(msg.charAt(i)), x+i, y);
+        }
     }
 
     public static void main(String[] args) throws Exception {
