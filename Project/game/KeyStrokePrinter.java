@@ -59,7 +59,6 @@ public class KeyStrokePrinter implements InputObserver, Runnable {
 
     @Override
     public void run() {
-        displayGrid.registerInputObserver(this);
         boolean working = true;
         while (working) {
             rest();
