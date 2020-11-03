@@ -31,16 +31,12 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         dungeon = _dungeon;
 
         terminal = new AsciiPanel(width, height);
-
         objectGrid = new Char[width][height];
-
         initializeDisplay();
 
         super.add(terminal);
         super.setSize(width * 9, height * 16);
         super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // super.repaint();
-        // terminal.repaint( );
         super.setVisible(true);
         terminal.setVisible(true);
         super.addKeyListener(this);
