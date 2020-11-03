@@ -48,34 +48,24 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
 
     @Override
     public void registerInputObserver(InputObserver observer) {
-        if (DEBUG > 0) {
-            System.out.println(CLASSID + ".registerInputObserver " + observer.toString());
-        }
+        if (DEBUG > 0) { System.out.println(CLASSID + ".registerInputObserver " + observer.toString()); }
         inputObservers.add(observer);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if (DEBUG > 0) {
-            System.out.println(CLASSID + ".keyTyped entered" + e.toString());
-        }
+        if (DEBUG > 0) { System.out.println(CLASSID + ".keyTyped entered" + e.toString()); }
         KeyEvent keypress = (KeyEvent) e;
         char key = keypress.getKeyChar();
         notifyInputObservers(keypress.getKeyChar());
         for(int i=0; i<dungeon.creatures.size(); i++){
             if(dungeon.creatures.get(i).getClass() == Player.class){
                 Player temp = (Player) dungeon.creatures.get(i);
-                if(key == 'i' && checkWalkable(temp.posX, temp.posY-1)) { 
-                    temp.setPosY(temp.posY-1); 
-                } else if(key == 'k' && checkWalkable(temp.posX, temp.posY+1)) { 
-                    temp.setPosY(temp.posY+1); 
-                } else if(key == 'j' && checkWalkable(temp.posX-1, temp.posY)) { 
-                    temp.setPosX(temp.posX - 1); 
-                } else if(key == 'l' && checkWalkable(temp.posX+1, temp.posY)) { 
-                    temp.setPosX(temp.posX + 1); 
-                } else {
-                    System.out.println("Can't walk there");
-                }
+                if(key == 'i' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
+                else if(key == 'k' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
+                else if(key == 'j' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX - 1); } 
+                else if(key == 'l' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX + 1); } 
+                else { System.out.println("Can't walk there"); }
             }
         }
         
@@ -84,21 +74,17 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
     private void notifyInputObservers(char ch) {
         for (InputObserver observer : inputObservers) {
             observer.observerUpdate(ch);
-            if (DEBUG > 0) {
-                System.out.println(CLASSID + ".notifyInputObserver " + ch);
-            }
+            if (DEBUG > 0) { System.out.println(CLASSID + ".notifyInputObserver " + ch); }
         }
     }
 
     // we have to override, but we don't use this
     @Override
-    public void keyPressed(KeyEvent e) {
-    }
+    public void keyPressed(KeyEvent e) {}
 
     // we have to override, but we don't use this
     @Override
-    public void keyReleased(KeyEvent e) {
-    }
+    public void keyReleased(KeyEvent e) {}
 
     public final void initializeDisplay() {
         Char ch = new Char(' ');
@@ -111,11 +97,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
     }
 
     public void fireUp() {
-        if (terminal.requestFocusInWindow()) {
-            System.out.println(CLASSID + ".ObjectDisplayGrid(...) requestFocusInWindow Succeeded");
-        } else {
-            System.out.println(CLASSID + ".ObjectDisplayGrid(...) requestFocusInWindow FAILED");
-        }
+        if (terminal.requestFocusInWindow()) { System.out.println(CLASSID + ".ObjectDisplayGrid(...) requestFocusInWindow Succeeded"); } 
+        else { System.out.println(CLASSID + ".ObjectDisplayGrid(...) requestFocusInWindow FAILED"); }
     }
 
     public void addObjectToDisplay(Char ch, int x, int y) {
