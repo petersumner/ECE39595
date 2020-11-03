@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubject {
+public class ObjectDisplayGrid extends JFrame implements KeyListener {
 
     private static final long serialVersionUID = -3705248120375555442L;
     private static final int DEBUG = 0;
@@ -45,12 +45,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
     }
 
     @Override
-    public void registerInputObserver(InputObserver observer) {
-        if (DEBUG > 0) { System.out.println(CLASSID + ".registerInputObserver " + observer.toString()); }
-        inputObservers.add(observer);
-    }
-
-    @Override
     public void keyTyped(KeyEvent e) {
         if (DEBUG > 0) { System.out.println(CLASSID + ".keyTyped entered" + e.toString()); }
         KeyEvent keypress = (KeyEvent) e;
@@ -74,7 +68,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
                     else if(key == 't') {}
                     else if(key == '?') { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
                     else if(key == 'H') { help = true; }
-                    else if(key == 'E') {exit = true;}
+                    else if(key == 'E') { exit = true; }
                 } else if(help == true) {
                     if(key == 'j') { System.out.println("j: move up"); }
                     else if(key == 'm') { System.out.println("m: move down"); }
