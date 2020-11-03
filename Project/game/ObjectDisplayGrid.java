@@ -11,7 +11,7 @@ import java.util.List;
 public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubject {
 
     private static final long serialVersionUID = -3705248120375555442L;
-    private static final int DEBUG = 1;
+    private static final int DEBUG = 0;
     private static final String CLASSID = ".ObjectDisplayGrid";
 
     private static AsciiPanel terminal;
@@ -22,6 +22,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
     private static int height;
     private static int width;
     private Dungeon dungeon;
+    private boolean help = false;
 
     public ObjectDisplayGrid(int _width, int _height, Dungeon _dungeon) {
         width = _width;
@@ -60,20 +61,37 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         notifyInputObservers(keypress.getKeyChar());
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
-                Player temp = (Player) dungeon.creatures.get(i);
-                if(key == 'j' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
-                else if(key == 'm' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
-                else if(key == 'n' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
-                else if(key == ',' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
-                else if(key == 'i' ) {}
-                else if(key == 'c' ) {}
-                else if(key == 'd' ) {}
-                else if(key == 'p' ) {}
-                else if(key == 'r' ) {}
-                else if(key == 'p' ) {}
-                else if(key == 'w' ) {}
-                else if(key == 't' ) {}
-                else if(key == '?' ) { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
+                if(help == false) {
+                    Player temp = (Player) dungeon.creatures.get(i);
+                    if(key == 'j' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
+                    else if(key == 'm' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
+                    else if(key == 'n' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
+                    else if(key == ',' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
+                    else if(key == 'i' ) {}
+                    else if(key == 'c' ) {}
+                    else if(key == 'd' ) {}
+                    else if(key == 'p' ) {}
+                    else if(key == 'r' ) {}
+                    else if(key == 'p' ) {}
+                    else if(key == 'w' ) {}
+                    else if(key == 't' ) {}
+                    else if(key == '?' ) { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
+                    else if(key == 'H' ) { help = true; }
+                }
+                else {
+                    if(key == 'j') { System.out.println("j: move up"); }
+                    else if(key == 'm') { System.out.println("m: move down"); }
+                    else if(key == 'n') { System.out.println("n: move left"); }
+                    else if(key == ',') { System.out.println(",: move right"); }
+                    else if(key == 'i') { System.out.println("i: inventory -- show pack contents");}
+                    else if(key == 'c') { System.out.println("c: take off/change armor"); }
+                    else if(key == 'd') { System.out.println("d: drop <item number> item from pack"); }
+                    else if(key == 'p') { System.out.println("p: pick up item under player and put in pack"); }
+                    else if(key == 'r') { System.out.println("r: read scroll <item number> item from pack"); }
+                    else if(key == 'w') { System.out.println("w: wear armor <item number> item from pack"); }
+                    else if(key == 't') { System.out.println("t: take out weapon from pack"); }
+                    help = false;
+                }
             }
         }
     }
