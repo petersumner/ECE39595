@@ -24,7 +24,6 @@ public class Rogue extends Canvas implements Runnable {
 
     public Rogue(int width, int height) {
         displayGrid = new ObjectDisplayGrid(width, height, dungeon);
-        //this.addKeyListener(new KeyInput(dungeon));
         this.start();
     }
 
@@ -53,7 +52,6 @@ public class Rogue extends Canvas implements Runnable {
             delta += (now - lastTime) / TIMEPERLOOP;
             lastTime = now;
             while(delta >= 1) {
-                //tick();
                 delta--;
             }
             if(running)
@@ -67,8 +65,6 @@ public class Rogue extends Canvas implements Runnable {
     }
 
     public void display() {
-
-        //displayGrid.fireUp();
 
         // Display Walls
         for (int i = 0; i < dungeon.rooms.size(); i++) {
