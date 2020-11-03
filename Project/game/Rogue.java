@@ -23,7 +23,7 @@ public class Rogue extends Canvas implements Runnable {
     private static DungeonXMLHandler handler;
 
     public Rogue(int width, int height) {
-        displayGrid = new ObjectDisplayGrid(width, height, dungeon);
+        displayGrid = new ObjectDisplayGrid(width, height+5, dungeon);
         this.start();
     }
 
@@ -123,6 +123,30 @@ public class Rogue extends Canvas implements Runnable {
             else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
             else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
         }
+
+        // Display HUD
+        displayGrid.addObjectToDisplay(new Char('H'), 0, -2);
+        displayGrid.addObjectToDisplay(new Char('P'), 1, -2);
+        displayGrid.addObjectToDisplay(new Char(':'), 2, -2);
+
+        displayGrid.addObjectToDisplay(new Char('c'), 8, -2);
+        displayGrid.addObjectToDisplay(new Char('o'), 9, -2);
+        displayGrid.addObjectToDisplay(new Char('r'), 10, -2);
+        displayGrid.addObjectToDisplay(new Char('e'), 11, -2);
+        displayGrid.addObjectToDisplay(new Char(':'), 12, -2);
+
+        displayGrid.addObjectToDisplay(new Char('P'), 0, dungeon.gameHeight - 2);
+        displayGrid.addObjectToDisplay(new Char('a'), 1, dungeon.gameHeight - 2);
+        displayGrid.addObjectToDisplay(new Char('c'), 2, dungeon.gameHeight - 2);
+        displayGrid.addObjectToDisplay(new Char('k'), 3, dungeon.gameHeight - 2);
+        displayGrid.addObjectToDisplay(new Char(':'), 4, dungeon.gameHeight - 2);
+
+        displayGrid.addObjectToDisplay(new Char('I'), 0, dungeon.gameHeight);
+        displayGrid.addObjectToDisplay(new Char('n'), 1, dungeon.gameHeight);
+        displayGrid.addObjectToDisplay(new Char('f'), 2, dungeon.gameHeight);
+        displayGrid.addObjectToDisplay(new Char('o'), 3, dungeon.gameHeight);
+        displayGrid.addObjectToDisplay(new Char(':'), 4, dungeon.gameHeight);
+
         try { Thread.sleep(20); } 
         catch (InterruptedException e) { e.printStackTrace(System.err); }
     }
