@@ -112,9 +112,8 @@ public class Rogue extends Canvas implements Runnable {
 
         // Display Creatures
         for (int i = 0; i < dungeon.creatures.size(); i++) {
-            int room = dungeon.creatures.get(i).room - 1;
-            int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
-            int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
+            int x = dungeon.creatures.get(i).posX;
+            int y = dungeon.creatures.get(i).posY;
             if (dungeon.creatures.get(i).getClass() == Player.class) { displayGrid.addObjectToDisplay(new Char('@'), x, y); } 
             else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
         }
@@ -144,6 +143,14 @@ public class Rogue extends Canvas implements Runnable {
             e.printStackTrace(System.out);
         }
         dungeon = handler.dungeon;
+        for (int i = 0; i < dungeon.creatures.size(); i++) {
+            int room = dungeon.creatures.get(i).room - 1;
+            int x = dungeon.rooms.get(room).posX + dungeon.creatures.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.creatures.get(i).posY;
+            Creature creature = dungeon.creatures.get(i);
+            creature.setPosX(x);
+            creature.setPosY(y);
+        }
         new Rogue(dungeon.width, dungeon.gameHeight);
     }
 }
