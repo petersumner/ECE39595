@@ -58,17 +58,24 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener, InputSubje
         KeyEvent keypress = (KeyEvent) e;
         char key = keypress.getKeyChar();
         notifyInputObservers(keypress.getKeyChar());
-        for(int i=0; i<dungeon.creatures.size(); i++){
-            if(dungeon.creatures.get(i).getClass() == Player.class){
+        for(int i=0; i<dungeon.creatures.size(); i++) {
+            if(dungeon.creatures.get(i).getClass() == Player.class) {
                 Player temp = (Player) dungeon.creatures.get(i);
-                if(key == 'i' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
-                else if(key == 'k' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
-                else if(key == 'j' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX - 1); } 
-                else if(key == 'l' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX + 1); } 
-                else { System.out.println("Can't walk there"); }
+                if(key == 'j' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
+                else if(key == 'm' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
+                else if(key == 'n' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
+                else if(key == ',' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
+                else if(key == 'i' ) {}
+                else if(key == 'c' ) {}
+                else if(key == 'd' ) {}
+                else if(key == 'p' ) {}
+                else if(key == 'r' ) {}
+                else if(key == 'p' ) {}
+                else if(key == 'w' ) {}
+                else if(key == 't' ) {}
+                else if(key == '?' ) { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
             }
         }
-        
     }
 
     private void notifyInputObservers(char ch) {
