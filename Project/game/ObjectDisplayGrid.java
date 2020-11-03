@@ -48,10 +48,10 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 if(help == false && exit == false) {
                     Player temp = (Player) dungeon.creatures.get(i);
-                    if(key == 'j' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
-                    else if(key == 'm' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
-                    else if(key == 'n' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
-                    else if(key == ',' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
+                    if(key == 'k' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
+                    else if(key == 'j' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
+                    else if(key == 'h' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
+                    else if(key == 'l' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
                     else if(key == 'i') {}
                     else if(key == 'c') {}
                     else if(key == 'd') {}
@@ -64,10 +64,10 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'H') { help = true; }
                     else if(key == 'E') { exit = true; }
                 } else if(help == true) {
-                    if(key == 'j') { System.out.println("j: move up"); }
-                    else if(key == 'm') { System.out.println("m: move down"); }
-                    else if(key == 'n') { System.out.println("n: move left"); }
-                    else if(key == ',') { System.out.println(",: move right"); }
+                    if(key == 'k') { System.out.println("k: move up"); }
+                    else if(key == 'j') { System.out.println("j: move down"); }
+                    else if(key == 'h') { System.out.println("h: move left"); }
+                    else if(key == 'l') { System.out.println("l: move right"); }
                     else if(key == 'i') { System.out.println("i: inventory -- show pack contents");}
                     else if(key == 'c') { System.out.println("c: take off/change armor"); }
                     else if(key == 'd') { System.out.println("d: drop <item number> item from pack"); }
