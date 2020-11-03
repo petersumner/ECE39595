@@ -20,6 +20,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private Dungeon dungeon;
     private boolean help = false;
     private boolean exit = false;
+    private char last;
 
     public ObjectDisplayGrid(int _width, int _height, Dungeon _dungeon) {
         width = _width;
@@ -108,6 +109,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     }
 
     public void addObjectToDisplay(Char ch, int x, int y) {
+        y = y+2;
         if ((0 <= x) && (x < objectGrid.length)) {
             if ((0 <= y) && (y < objectGrid[0].length)) {
                 objectGrid[x][y] = ch;
@@ -123,7 +125,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     }
 
     private boolean checkWalkable(int x, int y){
-        char ch = objectGrid[x][y].getChar();
+        char ch = objectGrid[x][y+2].getChar();
         if(ch == '.' || ch == '#' || ch == '+') { return true; }
         return false;
     }
