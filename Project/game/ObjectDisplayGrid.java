@@ -5,8 +5,6 @@ import src.*;
 import asciiPanel.AsciiPanel;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ObjectDisplayGrid extends JFrame implements KeyListener {
 
@@ -16,8 +14,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
 
     private static AsciiPanel terminal;
     private Char[][] objectGrid = null;
-
-    private List<InputObserver> inputObservers = null;
 
     private static int height;
     private static int width;
@@ -40,7 +36,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         super.setVisible(true);
         terminal.setVisible(true);
         super.addKeyListener(this);
-        inputObservers = new ArrayList<>();
         super.repaint();
     }
 
@@ -49,7 +44,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         if (DEBUG > 0) { System.out.println(CLASSID + ".keyTyped entered" + e.toString()); }
         KeyEvent keypress = (KeyEvent) e;
         char key = keypress.getKeyChar();
-        notifyInputObservers(keypress.getKeyChar());
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 if(help == false && exit == false) {
@@ -87,13 +81,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     exit = false;
                 }
             }
-        }
-    }
-
-    private void notifyInputObservers(char ch) {
-        for (InputObserver observer : inputObservers) {
-            observer.observerUpdate(ch);
-            if (DEBUG > 0) { System.out.println(CLASSID + ".notifyInputObserver " + ch); }
         }
     }
 
