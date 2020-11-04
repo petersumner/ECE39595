@@ -136,8 +136,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private void addItem(int x, int y){
         for(int i=0; i<dungeon.items.size(); i++){
             Item item = dungeon.items.get(i);
-            if(item.posX == x && item.posY == y+2){
-                System.out.println("booyah");
+            if(item.posX == x && item.posY == y){
+                pack.add(item);
             }
         }
     }
