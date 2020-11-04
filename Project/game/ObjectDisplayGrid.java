@@ -5,6 +5,8 @@ import src.*;
 import asciiPanel.AsciiPanel;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ObjectDisplayGrid extends JFrame implements KeyListener {
 
@@ -20,7 +22,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private Dungeon dungeon;
     private boolean help = false;
     private boolean exit = false;
-    private char last;
+
+    private List<Item> pack = new ArrayList<Item>();
 
     public ObjectDisplayGrid(int _width, int _height, Dungeon _dungeon) {
         width = _width;
@@ -56,7 +59,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'i') {}
                     else if(key == 'c') {}
                     else if(key == 'd') {}
-                    else if(key == 'p') {}
+                    else if(key == 'p') { addItem(temp.posX, temp.posY); }
                     else if(key == 'r') {}
                     else if(key == 'p') {}
                     else if(key == 'w') {}
@@ -126,7 +129,16 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
 
     private boolean checkWalkable(int x, int y){
         char ch = objectGrid[x][y+2].getChar();
-        if(ch == '.' || ch == '#' || ch == '+') { return true; }
+        if(ch == '.' || ch == '#' || ch == '+' || ch == '?' || ch == ']' || ch == ')') { return true; }
         return false;
+    }
+
+    private void addItem(int x, int y){
+        for(int i=0; i<dungeon.items.size(); i++){
+            Item item = dungeon.items.get(i);
+            if(item.posX == x && item.posY == y+2){
+                System.out.println("booyah");
+            }
+        }
     }
 }
