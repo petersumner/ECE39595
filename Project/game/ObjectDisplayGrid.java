@@ -90,6 +90,9 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     }
                     last = 0;
                 } else if (last == 'd') {
+                    if(pack.size() <= key){
+
+                    }
                     last = 0;
                 } else if (last == 'r') {
                     if(pack.size() <= key && pack.get(key).getClass() == Scroll.class){
@@ -151,6 +154,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
             Item item = dungeon.items.get(i);
             if(item.posX == x && item.posY == y){
                 pack.add(item);
+                dungeon.items.remove(i);
             }
         }
     }
