@@ -4,6 +4,7 @@ public class Scroll extends Item {
 
     public String name;
     public int serial;
+    public String pickupMessage;
     
     public Scroll(String _name){
         name = _name;
@@ -14,5 +15,9 @@ public class Scroll extends Item {
         room = _room;
         serial = _serial;
         System.out.println("   room: " + room + "\n   serial: " + serial);
+    }
+
+    public void setMsg(String msg) {
+        pickupMessage = msg;
     }
 }
