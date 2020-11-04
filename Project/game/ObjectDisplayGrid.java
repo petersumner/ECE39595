@@ -22,7 +22,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private Dungeon dungeon;
     private char last = 0;
 
-    private List<Item> pack = new ArrayList<Item>();
+    public List<Item> pack = new ArrayList<Item>();
 
     public ObjectDisplayGrid(int _width, int _height, Dungeon _dungeon) {
         width = _width;
