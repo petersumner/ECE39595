@@ -108,6 +108,16 @@ public class Rogue extends Canvas implements Runnable {
             displayGrid.addObjectToDisplay(new Char('+'), passage.xArr[j - 1], passage.yArr[j - 1]);
         }
 
+        // Display Items
+        for (int i = 0; i < dungeon.items.size(); i++) {
+            int room = dungeon.items.get(i).room - 1;
+            int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
+            int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
+            if (dungeon.items.get(i).getClass() == Scroll.class) { displayGrid.addObjectToDisplay(new Char('?'), x, y); } 
+            else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
+            else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
+        }
+
         // Display Creatures
         for (int i = 0; i < dungeon.creatures.size(); i++) {
             int x = dungeon.creatures.get(i).posX;
@@ -117,16 +127,6 @@ public class Rogue extends Canvas implements Runnable {
                 displayGrid.addObjectToDisplay(new Char('@'), x, y); 
             } 
             else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
-        }
-
-        // Display Items
-        for (int i = 0; i < dungeon.items.size(); i++) {
-            int room = dungeon.items.get(i).room - 1;
-            int x = dungeon.rooms.get(room).posX + dungeon.items.get(i).posX;
-            int y = dungeon.rooms.get(room).posY + dungeon.items.get(i).posY;
-            if (dungeon.items.get(i).getClass() == Scroll.class) { displayGrid.addObjectToDisplay(new Char('?'), x, y); } 
-            else if (dungeon.items.get(i).getClass() == Armor.class) { displayGrid.addObjectToDisplay(new Char(']'), x, y); } 
-            else if (dungeon.items.get(i).getClass() == Sword.class) { displayGrid.addObjectToDisplay(new Char(')'), x, y); }
         }
 
         // Display HUD
