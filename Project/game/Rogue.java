@@ -147,7 +147,7 @@ public class Rogue extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "src/xmlFiles/testDrawing.xml";
+        String fileName = "src/xmlFiles/badScroll.xml";
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
