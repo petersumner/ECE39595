@@ -6,6 +6,7 @@ public class Item extends Displayable {
     public int room;
     public String msg;
     public Action action;
+    public String name;
 
     public void setOwner(Creature _owner){
         owner = _owner;
