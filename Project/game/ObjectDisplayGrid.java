@@ -22,6 +22,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private Dungeon dungeon;
     private boolean help = false;
     private boolean exit = false;
+    private char last = 0;
 
     private List<Item> pack = new ArrayList<Item>();
 
@@ -50,7 +51,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         char key = keypress.getKeyChar();
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
-                if(help == false && exit == false) {
+                if(last == 0) {
                     Player temp = (Player) dungeon.creatures.get(i);
                     if(key == 'k' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
                     else if(key == 'j' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
@@ -58,16 +59,16 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'l' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
                     else if(key == 'i') {}
                     else if(key == 'c') {}
-                    else if(key == 'd') {}
+                    else if(key == 'd') { last = 'd'; }
                     else if(key == 'p') { addItem(temp.posX, temp.posY); }
-                    else if(key == 'r') {}
+                    else if(key == 'r') { last = 'r'; }
                     else if(key == 'p') {}
-                    else if(key == 'w') {}
+                    else if(key == 'w') { last = 'w'; }
                     else if(key == 't') {}
                     else if(key == '?') { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
-                    else if(key == 'H') { help = true; }
-                    else if(key == 'E') { exit = true; }
-                } else if(help == true) {
+                    else if(key == 'H') { last = 'H'; }
+                    else if(key == 'E') { last = 'E'; }
+                } else if(last == 'H') {
                     if(key == 'k') { System.out.println("k: move up"); }
                     else if(key == 'j') { System.out.println("j: move down"); }
                     else if(key == 'h') { System.out.println("h: move left"); }
@@ -79,10 +80,22 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'r') { System.out.println("r: read scroll <item number> item from pack"); }
                     else if(key == 'w') { System.out.println("w: wear armor <item number> item from pack"); }
                     else if(key == 't') { System.out.println("t: take out weapon from pack"); }
-                    help = false;
-                } else {
+                    last = 0;
+                } else if (last == 'E') {
                     if(key == 'Y' || key == 'y') { System.exit(1); }
-                    exit = false;
+                    last = 0;
+                } else if (last == 'w') {
+                    if(pack.size() <= key && pack.get(key).getClass() == Armor.class){
+                        
+                    }
+                    last = 0;
+                } else if (last == 'd') {
+                    last = 0;
+                } else if (last == 'r') {
+                    if(pack.size() <= key && pack.get(key).getClass() == Scroll.class){
+                        
+                    }
+                    last = 0;
                 }
             }
         }
