@@ -119,6 +119,9 @@ public class DungeonXMLHandler extends DefaultHandler {
             CreatureAction action = new CreatureAction((Creature)creatureBeingParsed);
             action.setName(name);
             action.setType(type);
+            if(type == "death"){
+                creatureBeingParsed.setDeathAction(action);
+            }
             actionBeingParsed = action;
         
         } else if (qName.equalsIgnoreCase("ItemAction")) {
