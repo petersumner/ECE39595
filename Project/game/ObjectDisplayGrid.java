@@ -49,8 +49,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         char key = keypress.getKeyChar();
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
+                Player temp = (Player) dungeon.creatures.get(i);
                 if(last == 0) {
-                    Player temp = (Player) dungeon.creatures.get(i);
                     if(key == 'k' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
                     else if(key == 'j' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
                     else if(key == 'h' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
@@ -88,8 +88,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     }
                     last = 0;
                 } else if (last == 'd') {
-                    if(pack.size() <= key){
-
+                    if(pack.size() <= Character.getNumericValue(key)){
+                        dropItem(temp.posX, temp.posY, Character.getNumericValue(key));
                     }
                     last = 0;
                 } else if (last == 'r') {
@@ -143,6 +143,9 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
 
     private boolean checkWalkable(int x, int y){
         char ch = objectGrid[x][y+2].getChar();
+        if(ch == 'T' || ch == 'H' || ch == 'S') {
+
+        }
         if(ch == '.' || ch == '#' || ch == '+' || ch == '?' || ch == ']' || ch == ')') { return true; }
         return false;
     }
@@ -155,5 +158,12 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 dungeon.items.remove(i);
             }
         }
+    }
+
+    private void dropItem(int x, int y, int i){
+        Item item = pack.get(i-1);
+        item.posX = x;
+        item.posY = y;
+        dungeon.items.add(item);
     }
 }
