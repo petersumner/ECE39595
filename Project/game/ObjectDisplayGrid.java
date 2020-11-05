@@ -21,6 +21,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private static int width;
     private Dungeon dungeon;
     private char last = 0;
+    private boolean showPack = false;
 
     public List<Item> pack = new ArrayList<Item>();
 
@@ -55,7 +56,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'j' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
                     else if(key == 'h' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
                     else if(key == 'l' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
-                    else if(key == 'i') {}
+                    else if(key == 'i') { showPack = !showPack; }
                     else if(key == 'c') {}
                     else if(key == 'd') { last = 'd'; }
                     else if(key == 'p') { addItem(temp.posX, temp.posY); }
@@ -160,11 +161,29 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         }
     }
 
-    private void dropItem(int x, int y, int i){
+    public void displayString(String msg, int x, int y){
+        for(int i=0; i<msg.length(); i++){
+            addObjectToDisplay(new Char(msg.charAt(i)), x+i, y);
+        }
+    }
+
+    private void dropItem(int x, int y, int i) {
         Item item = pack.get(i-1);
         item.posX = x;
         item.posY = y;
         dungeon.items.add(item);
         pack.remove(i-1);
+    }
+
+    public void displayPack(){
+        for(int i=6; i<dungeon.width; i++){
+            addObjectToDisplay(new Char(' '), i, dungeon.gameHeight-2);
+        }
+        if(showPack) {
+            for(int i=0; i<pack.size(); i++){
+                Item item = pack.get(i);
+                displayString(Integer.toString(i+1)+": "+item.name, 6 + i*10, dungeon.gameHeight-2);
+            }
+        }
     }
 }
