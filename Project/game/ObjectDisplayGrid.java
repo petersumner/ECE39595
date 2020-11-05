@@ -148,23 +148,25 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
             for(int i=0; i<dungeon.creatures.size(); i++){
                 if(x == dungeon.creatures.get(i).posX && y == dungeon.creatures.get(i).posY) {
                     Creature monster = dungeon.creatures.get(i);
-                    fight(monster);
+                    fight(monster, i);
                 }
             }
         } else if(ch == '.' || ch == '#' || ch == '+' || ch == '?' || ch == ']' || ch == ')') { return true; }
         return false;
     }
 
-    private void fight(Creature monster) {
+    private void fight(Creature monster, int j) {
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 Player player = (Player) dungeon.creatures.get(i);
                 System.out.println("FIGHT: "+monster.hp+" "+player.maxHit);
-                monster.hp = monster.hp - player.maxHit;
+                monster.setHp(monster.hp - player.maxHit);
                 if(monster.hp < 1) {
-                    System.out.println("haha you killed the monster");
+                    displayString("slain", 6, dungeon.gameHeight);
+                    dungeon.creatures.remove(j);
                     return;
                 }
+                player.setHp(player.hp - monster.maxHit);
                 if(player.hp < 1) {
 
                 }
