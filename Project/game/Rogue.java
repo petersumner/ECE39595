@@ -148,6 +148,9 @@ public class Rogue extends Canvas implements Runnable {
     }
 
     public void displayPack(){
+        for(int i=0; i<dungeon.width; i++){
+            displayGrid.addObjectToDisplay(new Char(' '), i, dungeon.gameHeight-1);
+        }
         for(int i=0; i<displayGrid.pack.size(); i++){
             Item item = displayGrid.pack.get(i);
             displayString(Integer.toString(i+1)+": "+item.name, 0 + i*10, dungeon.gameHeight -1);
@@ -155,7 +158,7 @@ public class Rogue extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "src/xmlFiles/badScroll.xml";
+        String fileName = "src/xmlFiles/wear.xml";
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
