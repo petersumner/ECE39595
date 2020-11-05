@@ -147,7 +147,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         if(ch == 'T' || ch == 'H' || ch == 'S') {
             for(int i=0; i<dungeon.creatures.size(); i++){
                 if(x == dungeon.creatures.get(i).posX && y == dungeon.creatures.get(i).posY) {
-                    Monster monster = (Monster) dungeon.creatures.get(i);
+                    Creature monster = dungeon.creatures.get(i);
                     fight(monster);
                 }
             }
@@ -155,19 +155,18 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         return false;
     }
 
-    private void fight(Monster monster) {
+    private void fight(Creature monster) {
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 Player player = (Player) dungeon.creatures.get(i);
-                monster.hp -= player.maxHit;
+                System.out.println("FIGHT: "+monster.hp+" "+player.maxHit);
+                monster.hp = monster.hp - player.maxHit;
                 if(monster.hp < 1) {
-                    
+                    System.out.println("haha you killed the monster");
                     return;
                 }
-                player.hp -= monster.maxHit;
                 if(player.hp < 1) {
 
-                    
                 }
             }
         }
