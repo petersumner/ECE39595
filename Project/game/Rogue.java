@@ -130,31 +130,14 @@ public class Rogue extends Canvas implements Runnable {
         }
 
         // Display HUD
-        displayString("HP: "+Integer.toString(hp), 0, -2);
-        displayString("core:  0", 8, -2);
-
-        displayString("Pack: ", 0, dungeon.gameHeight - 2);
-        displayPack();
-        displayString("Info: ", 0, dungeon.gameHeight);
+        displayGrid.displayString("HP: "+Integer.toString(hp), 0, -2);
+        displayGrid.displayString("core:  0", 8, -2);
+        displayGrid.displayString("Pack: ", 0, dungeon.gameHeight - 2);
+        displayGrid.displayPack();
+        displayGrid.displayString("Info: ", 0, dungeon.gameHeight);
 
         try { Thread.sleep(20); } 
         catch (InterruptedException e) { e.printStackTrace(System.err); }
-    }
-
-    public void displayString(String msg, int x, int y){
-        for(int i=0; i<msg.length(); i++){
-            displayGrid.addObjectToDisplay(new Char(msg.charAt(i)), x+i, y);
-        }
-    }
-
-    public void displayPack(){
-        for(int i=0; i<dungeon.width; i++){
-            displayGrid.addObjectToDisplay(new Char(' '), i, dungeon.gameHeight-1);
-        }
-        for(int i=0; i<displayGrid.pack.size(); i++){
-            Item item = displayGrid.pack.get(i);
-            displayString(Integer.toString(i+1)+": "+item.name, 0 + i*10, dungeon.gameHeight -1);
-        }
     }
 
     public static void main(String[] args) throws Exception {
