@@ -184,7 +184,6 @@ public class DungeonXMLHandler extends DefaultHandler {
             object.setHpMove(Integer.parseInt(data.toString()));
             bHpMoves = false;
         } else if (bMaxHit) {
-            object = (Creature) object;
             object.setMaxHit(Integer.parseInt(data.toString()));
             bMaxHit = false;
         } else if (bActionMessage) {
