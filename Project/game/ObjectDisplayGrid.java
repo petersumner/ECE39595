@@ -145,10 +145,32 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private boolean checkWalkable(int x, int y){
         char ch = objectGrid[x][y+2].getChar();
         if(ch == 'T' || ch == 'H' || ch == 'S') {
-
-        }
-        if(ch == '.' || ch == '#' || ch == '+' || ch == '?' || ch == ']' || ch == ')') { return true; }
+            for(int i=0; i<dungeon.creatures.size(); i++){
+                if(x == dungeon.creatures.get(i).posX && y == dungeon.creatures.get(i).posY) {
+                    Monster monster = (Monster) dungeon.creatures.get(i);
+                    fight(monster);
+                }
+            }
+        } else if(ch == '.' || ch == '#' || ch == '+' || ch == '?' || ch == ']' || ch == ')') { return true; }
         return false;
+    }
+
+    private void fight(Monster monster) {
+        for(int i=0; i<dungeon.creatures.size(); i++) {
+            if(dungeon.creatures.get(i).getClass() == Player.class) {
+                Player player = (Player) dungeon.creatures.get(i);
+                monster.hp -= player.maxHit;
+                if(monster.hp < 1) {
+                    
+                    return;
+                }
+                player.hp -= monster.maxHit;
+                if(player.hp < 1) {
+
+                    
+                }
+            }
+        }
     }
 
     private void addItem(int x, int y){
