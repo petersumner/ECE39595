@@ -7,7 +7,6 @@ public class Player extends Creature {
     public String name = "Player";
     public int serial;
     public int hp;
-    public int maxHit;
     public int hpMoves;
 
     public Player(){
