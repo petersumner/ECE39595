@@ -165,5 +165,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         item.posX = x;
         item.posY = y;
         dungeon.items.add(item);
+        pack.remove(i-1);
     }
 }
