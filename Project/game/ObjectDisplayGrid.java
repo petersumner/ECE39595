@@ -209,18 +209,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         }
     }
 
-    public void displayPack(){
-        for(int i=6; i<dungeon.width; i++){
-            addObjectToDisplay(new Char(' '), i, dungeon.gameHeight-2);
-        }
-        if(showPack) {
-            for(int i=0; i<pack.size(); i++){
-                Item item = pack.get(i);
-                displayString(Integer.toString(i+1)+": "+item.name, 6 + i*10, dungeon.gameHeight-2);
-            }
-        }
-    }
-
     private void addItem(int x, int y){
         for(int i=0; i<dungeon.items.size(); i++){
             Item item = dungeon.items.get(i);
