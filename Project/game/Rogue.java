@@ -23,7 +23,7 @@ public class Rogue extends Canvas implements Runnable {
     private static DungeonXMLHandler handler;
 
     public Rogue(int width, int height) {
-        displayGrid = new ObjectDisplayGrid(width, height+5, dungeon);
+        displayGrid = new ObjectDisplayGrid(width, height+6, dungeon);
         this.start();
     }
 
@@ -128,8 +128,9 @@ public class Rogue extends Canvas implements Runnable {
             } 
             else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
         }
-
+ 
         // Display HUD
+        displayGrid.addObjectToDisplay(new Char(' '), 5, -2);
         displayGrid.displayString("HP: "+Integer.toString(hp), 0, -2);
         displayGrid.displayString("core:  0", 8, -2);
         displayGrid.displayString("Pack: ", 0, dungeon.gameHeight - 2);
@@ -141,7 +142,7 @@ public class Rogue extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "src/xmlFiles/wear.xml";
+        String fileName = "src/xmlFiles/testDrawing.xml";
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
