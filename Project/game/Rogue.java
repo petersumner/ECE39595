@@ -134,7 +134,6 @@ public class Rogue extends Canvas implements Runnable {
         displayGrid.displayString("HP: "+Integer.toString(hp), 0, -2);
         displayGrid.displayString("core:  0", 8, -2);
         displayGrid.displayString("Pack: ", 0, dungeon.gameHeight - 2);
-        displayGrid.displayPack();
         displayGrid.displayString("Info: ", 0, dungeon.gameHeight);
 
         try { Thread.sleep(20); } 
