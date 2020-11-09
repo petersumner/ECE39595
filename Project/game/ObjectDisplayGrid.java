@@ -57,7 +57,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'j' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
                     else if(key == 'h' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
                     else if(key == 'l' && checkWalkable(temp.posX+1, temp.posY)) { temp.setPosX(temp.posX+1); } 
-                    else if(key == 'i') { showPack = !showPack; }
+                    else if(key == 'i') { showPack = !showPack; togglePack(); }
                     else if(key == 'c') {}
                     else if(key == 'd') { last = 'd'; }
                     else if(key == 'p') { addItem(temp.posX, temp.posY); }
@@ -194,6 +194,10 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 }
             }
         }
+    }
+
+    private void togglePack() {
+
     }
 
     private void clearRow(int y) {
