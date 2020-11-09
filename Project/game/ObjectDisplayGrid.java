@@ -188,6 +188,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     } else {
                         dungeon.creatures.remove(creature);
                     }
+                } else if(type.equals("hit")) {
+                    
                 }
             }
         }
