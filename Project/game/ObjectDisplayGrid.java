@@ -168,7 +168,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 player.setHp(player.hp - monster.maxHit);
                 if(player.hp < 1) {
                     player.setHp(0);
-                    if(player.da != null) { displayString(player.da.msg, 6, dungeon.gameHeight); }
+                    doActions(player, "death");
+                    //if(player.da != null) { displayString(player.da.msg, 6, dungeon.gameHeight); }
 
                 }
             }
@@ -185,14 +186,19 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 }
                 if(type.equals("death")) {
                     if(creature.getClass() == Player.class) {
+                        endGame();
                     } else {
                         dungeon.creatures.remove(creature);
                     }
                 } else if(type.equals("hit")) {
-                    
+
                 }
             }
         }
+    }
+
+    private void endGame() {
+        
     }
 
     private void clearRow(int y) {
