@@ -62,7 +62,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'd') { last = 'd'; }
                     else if(key == 'p') { addItem(temp.posX, temp.posY); }
                     else if(key == 'r') { last = 'r'; }
-                    else if(key == 'p') {}
                     else if(key == 'w') { last = 'w'; }
                     else if(key == 't') {}
                     else if(key == '?') { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
@@ -197,6 +196,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     }
 
     private void togglePack() {
+        clearRow(dungeon.gameHeight-2);
         if(showPack == true) {
             if(pack.size() == 0){
                 displayString("pack is empty", 6, dungeon.gameHeight-2);
@@ -205,35 +205,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     displayString(Integer.toString(i+1), 6+i*10, dungeon.gameHeight-2);
                 }
             }
-        } else { clearRow(dungeon.gameHeight-2); }
-    }
-
-    private void clearRow(int y) {
-        for(int i=6; i<width; i++) { addObjectToDisplay(new Char(' '), i, y); }
-    }
-
-    private void addItem(int x, int y){
-        for(int i=0; i<dungeon.items.size(); i++){
-            Item item = dungeon.items.get(i);
-            if(item.posX == x && item.posY == y){
-                pack.add(item);
-                dungeon.items.remove(i);
-            }
         }
-    }
-
-    public void displayString(String msg, int x, int y){
-        for(int i=0; i<msg.length(); i++){
-            addObjectToDisplay(new Char(msg.charAt(i)), x+i, y);
-        }
-    }
-
-    private void dropItem(int x, int y, int i) {
-        Item item = pack.get(i-1);
-        item.posX = x;
-        item.posY = y;
-        dungeon.items.add(item);
-        pack.remove(i-1);
     }
 
     public void displayPack(){
@@ -246,5 +218,33 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 displayString(Integer.toString(i+1)+": "+item.name, 6 + i*10, dungeon.gameHeight-2);
             }
         }
+    }
+
+    private void addItem(int x, int y){
+        for(int i=0; i<dungeon.items.size(); i++){
+            Item item = dungeon.items.get(i);
+            if(item.posX == x && item.posY == y){
+                pack.add(item);
+                dungeon.items.remove(i);
+            }
+        }
+    }
+
+    private void dropItem(int x, int y, int i) {
+        Item item = pack.get(i-1);
+        item.posX = x;
+        item.posY = y;
+        dungeon.items.add(item);
+        pack.remove(i-1);
+    }
+
+    public void displayString(String msg, int x, int y){
+        for(int i=0; i<msg.length(); i++){
+            addObjectToDisplay(new Char(msg.charAt(i)), x+i, y);
+        }
+    }
+
+    private void clearRow(int y) {
+        for(int i=6; i<width; i++) { addObjectToDisplay(new Char(' '), i, y); }
     }
 }
