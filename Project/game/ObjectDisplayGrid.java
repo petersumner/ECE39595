@@ -162,16 +162,39 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 System.out.println("FIGHT: "+monster.hp+" "+player.maxHit);
                 monster.setHp(monster.hp - player.maxHit);
                 if(monster.hp < 1) {
-                    displayString("slain", 6, dungeon.gameHeight);
-                    dungeon.creatures.remove(j);
+                    doActions(monster, "death");
                     return;
                 }
                 player.setHp(player.hp - monster.maxHit);
                 if(player.hp < 1) {
+                    player.setHp(0);
+                    if(player.da != null) { displayString(player.da.msg, 6, dungeon.gameHeight); }
 
                 }
             }
         }
+    }
+
+    private void doActions(Creature creature, String type) {
+        for(int i=0; i<creature.creatureActions.size(); i++) {
+            CreatureAction action = creature.creatureActions.get(i);
+            if(action.type.equals(type)) {
+                if(action.msg != null) { 
+                    clearRow(dungeon.gameHeight);
+                    displayString(action.msg, 6, dungeon.gameHeight); 
+                }
+                if(type.equals("death")) {
+                    if(creature.getClass() == Player.class) {
+                    } else {
+                        dungeon.creatures.remove(creature);
+                    }
+                }
+            }
+        }
+    }
+
+    private void clearRow(int y) {
+        for(int i=0; i<width; i++) { addObjectToDisplay(new Char(' '), i, y); }
     }
 
     private void addItem(int x, int y){
