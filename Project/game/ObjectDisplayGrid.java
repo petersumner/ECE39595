@@ -170,8 +170,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 if(player.hp < 1) {
                     player.setHp(0);
                     doActions(player, "death");
-                    //if(player.da != null) { displayString(player.da.msg, 6, dungeon.gameHeight); }
-
                 }
             }
         }
