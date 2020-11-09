@@ -65,7 +65,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'w') { last = 'w'; }
                     else if(key == 't') {}
                     else if(key == '?') { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
-                    else if(key == 'H') { last = 'H'; }
+                } else if(last == 0) { 
+                    if(key == 'H') { last = 'H'; }
                     else if(key == 'E') { last = 'E'; }
                 } else if(last == 'H') {
                     if(key == 'k') { System.out.println("k: move up"); }
