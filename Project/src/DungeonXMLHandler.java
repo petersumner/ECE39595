@@ -119,9 +119,8 @@ public class DungeonXMLHandler extends DefaultHandler {
             CreatureAction action = new CreatureAction((Creature)creatureBeingParsed);
             action.setName(name);
             action.setType(type);
-            if(type == "death"){
-                creatureBeingParsed.setDeathAction(action);
-            }
+            creatureBeingParsed.addCreatureAction(action);
+            if(type.equals("death")) { creatureBeingParsed.setDeathAction(action); }
             actionBeingParsed = action;
         
         } else if (qName.equalsIgnoreCase("ItemAction")) {
@@ -147,7 +146,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             bHpMoves = true; 
         } else if (qName.equalsIgnoreCase("maxhit")) {
             bMaxHit = true;
-        } else if (qName.equalsIgnoreCase("actionmessage")) {
+        } else if (qName.equalsIgnoreCase("actionMessage")) {
             bActionMessage = true;
         } else if (qName.equalsIgnoreCase("width")) {
             bWidth = true;
