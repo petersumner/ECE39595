@@ -198,10 +198,14 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
 
     private void togglePack() {
         if(showPack == true) {
-
-        } else {
-            clearRow(dungeon.gameHeight-2);
-        }
+            if(pack.size() == 0){
+                displayString("pack is empty", 6, dungeon.gameHeight-2);
+            } else {
+                for(int i=0; i<pack.size(); i++) {
+                    displayString(Integer.toString(i+1), 6+i*10, dungeon.gameHeight-2);
+                }
+            }
+        } else { clearRow(dungeon.gameHeight-2); }
     }
 
     private void clearRow(int y) {
