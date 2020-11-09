@@ -22,6 +22,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private Dungeon dungeon;
     private char last = 0;
     private boolean showPack = false;
+    private boolean endGame = false;
 
     public List<Item> pack = new ArrayList<Item>();
 
@@ -51,7 +52,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 Player temp = (Player) dungeon.creatures.get(i);
-                if(last == 0) {
+                if(last == 0 && endGame == false) {
                     if(key == 'k' && checkWalkable(temp.posX, temp.posY-1)) { temp.setPosY(temp.posY-1); } 
                     else if(key == 'j' && checkWalkable(temp.posX, temp.posY+1)) { temp.setPosY(temp.posY+1); } 
                     else if(key == 'h' && checkWalkable(temp.posX-1, temp.posY)) { temp.setPosX(temp.posX-1); } 
@@ -83,17 +84,17 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 } else if (last == 'E') {
                     if(key == 'Y' || key == 'y') { System.exit(1); }
                     last = 0;
-                } else if (last == 'w') {
+                } else if (last == 'w' && endGame == false) {
                     if(pack.size() <= key && pack.get(key).getClass() == Armor.class){
                         
                     }
                     last = 0;
-                } else if (last == 'd') {
+                } else if (last == 'd' && endGame == false) {
                     if(pack.size() <= Character.getNumericValue(key)){
                         dropItem(temp.posX, temp.posY, Character.getNumericValue(key));
                     }
                     last = 0;
-                } else if (last == 'r') {
+                } else if (last == 'r' && endGame == false) {
                     if(pack.size() <= key && pack.get(key).getClass() == Scroll.class){
                         
                     }
@@ -186,7 +187,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 }
                 if(type.equals("death")) {
                     if(creature.getClass() == Player.class) {
-                        endGame();
+                        endGame = true;
                     } else {
                         dungeon.creatures.remove(creature);
                     }
@@ -195,10 +196,6 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 }
             }
         }
-    }
-
-    private void endGame() {
-        
     }
 
     private void clearRow(int y) {
