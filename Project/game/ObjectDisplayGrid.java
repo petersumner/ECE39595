@@ -65,6 +65,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'w') { last = 'w'; }
                     else if(key == 't') {}
                     else if(key == '?') { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
+                    else if(key == 'H') { last = 'H'; }
+                    else if(key == 'E') { last = 'E'; }
                 } else if(last == 0) { 
                     if(key == 'H') { last = 'H'; }
                     else if(key == 'E') { last = 'E'; }
@@ -85,9 +87,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     if(key == 'Y' || key == 'y') { System.exit(1); }
                     last = 0;
                 } else if (last == 'w' && endGame == false) {
-                    if(pack.size() <= key && pack.get(key).getClass() == Armor.class){
-                        
-                    }
+                    equipArmor(key);
                     last = 0;
                 } else if (last == 'd' && endGame == false) {
                     if(pack.size() <= Character.getNumericValue(key)){
@@ -148,7 +148,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         if(ch == 'T' || ch == 'H' || ch == 'S') {
             for(int i=0; i<dungeon.creatures.size(); i++){
                 if(x == dungeon.creatures.get(i).posX && y == dungeon.creatures.get(i).posY) {
-                    Creature monster = dungeon.creatures.get(i);
+                    Monster monster = (Monster) dungeon.creatures.get(i);
                     fight(monster, i);
                 }
             }
@@ -156,12 +156,13 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         return false;
     }
 
-    private void fight(Creature monster, int j) {
+    private void fight(Monster monster, int j) {
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 Player player = (Player) dungeon.creatures.get(i);
                 System.out.println("FIGHT: "+monster.hp+" "+player.maxHit);
                 monster.setHp(monster.hp - player.maxHit);
+                displayString(monster.name+": -"+player.maxHit+"HP", 6, dungeon.gameHeight);
                 if(monster.hp < 1) {
                     doActions(monster, "death");
                     return;
@@ -171,6 +172,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     player.setHp(0);
                     doActions(player, "death");
                 }
+                displayString("Player: -"+monster.maxHit+"HP", 22, dungeon.gameHeight);
             }
         }
     }
@@ -206,6 +208,12 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     displayString(Integer.toString(i+1), 6+i*10, dungeon.gameHeight-2);
                 }
             }
+        }
+    }
+
+    private void equipArmor(int x) {
+        if(pack.size() <= x && pack.get(x).getClass() == Armor.class){
+            
         }
     }
 
