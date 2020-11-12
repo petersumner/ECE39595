@@ -162,6 +162,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 Player player = (Player) dungeon.creatures.get(i);
                 System.out.println("FIGHT: "+monster.hp+" "+player.maxHit);
                 monster.setHp(monster.hp - player.maxHit);
+                clearRow(dungeon.gameHeight);
                 displayString(monster.name+": -"+player.maxHit+"HP", 6, dungeon.gameHeight);
                 if(monster.hp < 1) {
                     doActions(monster, "death");
