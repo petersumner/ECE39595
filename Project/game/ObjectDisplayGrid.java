@@ -173,7 +173,9 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     player.setHp(0);
                     doActions(player, "death");
                 }
-                displayString("Player: -"+monster.maxHit+"HP", 22, dungeon.gameHeight);
+                if(endGame == false) {
+                    displayString("Player: -"+monster.maxHit+"HP", 22, dungeon.gameHeight);
+                }
             }
         }
     }
@@ -206,24 +208,24 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 displayString("pack is empty", 6, dungeon.gameHeight-2);
             } else {
                 for(int i=0; i<pack.size(); i++) {
-                    displayString(Integer.toString(i+1), 6+i*10, dungeon.gameHeight-2);
+                    displayString(Integer.toString(i+1), 6+i*13, dungeon.gameHeight-2);
+                    displayString(pack.get(i).name, 8+i*13, dungeon.gameHeight-2);
                 }
             }
         }
     }
 
     private void equipArmor(int x) {
-        if(pack.size() <= x && pack.get(x).getClass() == Armor.class){
-            
-        }
+        if(pack.size() <= x && pack.get(x).getClass() == Armor.class){}
     }
 
     private void addItem(int x, int y){
-        for(int i=0; i<dungeon.items.size(); i++){
+        for(int i=dungeon.items.size()-1; i>=0; i--){
             Item item = dungeon.items.get(i);
             if(item.posX == x && item.posY == y){
                 pack.add(item);
                 dungeon.items.remove(i);
+                break;
             }
         }
     }
