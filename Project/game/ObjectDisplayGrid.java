@@ -120,9 +120,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     public final void initializeDisplay() {
         Char ch = new Char(' ');
         for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
-                addObjectToDisplay(ch, i, j);
-            }
+            for (int j = 0; j < height; j++) { addObjectToDisplay(ch, i, j); }
         }
         terminal.repaint();
     }
@@ -209,9 +207,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     private void togglePack() {
         clearRow(dungeon.gameHeight-2);
         if(showPack == true) {
-            if(pack.size() == 0){
-                displayString("pack is empty", 6, dungeon.gameHeight-2);
-            } else {
+            if(pack.size() == 0) { displayString("pack is empty", 6, dungeon.gameHeight-2); } 
+            else {
                 for(int i=0; i<pack.size(); i++) {
                     displayString(Integer.toString(i+1), 6+i*13, dungeon.gameHeight-2);
                     displayString(pack.get(i).name, 8+i*13, dungeon.gameHeight-2);
@@ -255,22 +252,20 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 Player player = (Player) dungeon.creatures.get(i);
-                if(player.armor != null) {
-                    pack.add(player.armor);
-                }
-                if(player.sword != null) {
-                    pack.add(player.sword);
-                }
+                if(player.armor != null) { pack.add(player.armor); }
+                if(player.sword != null) { pack.add(player.sword); }
             }
         }
     }
 
-    private void addItem(int x, int y){
-        for(int i=dungeon.items.size()-1; i>=0; i--){
+    private void addItem(int x, int y) {
+        for(int i=dungeon.items.size()-1; i>=0; i--) {
             Item item = dungeon.items.get(i);
-            if(item.posX == x && item.posY == y){
+            if(item.posX == x && item.posY == y) {
                 pack.add(item);
                 dungeon.items.remove(i);
+                clearRow(dungeon.gameHeight);
+                displayString("Picked up "+item.name, 6, dungeon.gameHeight);
                 break;
             }
         }
@@ -285,9 +280,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     }
 
     public void displayString(String msg, int x, int y){
-        for(int i=0; i<msg.length(); i++){
-            addObjectToDisplay(new Char(msg.charAt(i)), x+i, y);
-        }
+        for(int i=0; i<msg.length(); i++ ){ addObjectToDisplay(new Char(msg.charAt(i)), x+i, y); }
     }
 
     private void clearRow(int y) {
