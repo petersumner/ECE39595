@@ -42,6 +42,8 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         terminal.setVisible(true);
         super.addKeyListener(this);
         super.repaint();
+
+        initPack();
     }
 
     @Override
@@ -63,7 +65,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     else if(key == 'p') { addItem(temp.posX, temp.posY); }
                     else if(key == 'r') { last = 'r'; }
                     else if(key == 'w') { last = 'w'; }
-                    else if(key == 't') {}
+                    else if(key == 't') { last = 't'; }
                     else if(key == '?') { System.out.println("h,l,k,j,i,?,H,c,d,p,R,T,w,E,0-9. H <cmd> for more info"); }
                     else if(key == 'H') { last = 'H'; }
                     else if(key == 'E') { last = 'E'; }
@@ -86,8 +88,11 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 } else if (last == 'E') {
                     if(key == 'Y' || key == 'y') { System.exit(1); }
                     last = 0;
+                } else if (last == 't' && endGame == false) {
+                    equipWeapon(Character.getNumericValue(key));
+                    last = 0;
                 } else if (last == 'w' && endGame == false) {
-                    equipArmor(key);
+                    equipArmor(Character.getNumericValue(key));
                     last = 0;
                 } else if (last == 'd' && endGame == false) {
                     if(pack.size() <= Character.getNumericValue(key)){
@@ -216,7 +221,48 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     }
 
     private void equipArmor(int x) {
-        if(pack.size() <= x && pack.get(x).getClass() == Armor.class){}
+        if(pack.size() >= x ) {
+            if(pack.get(x-1).getClass() == Armor.class) {
+                for(int i=0; i<dungeon.creatures.size(); i++) {
+                    if(dungeon.creatures.get(i).getClass() == Player.class) {
+                        Player player = (Player) dungeon.creatures.get(i);
+                        player.setArmor((Armor)pack.get(x-1));
+                        clearRow(dungeon.gameHeight);
+                        displayString("Wearing armor: "+pack.get(x-1).name, 6, dungeon.gameHeight);
+                    }
+                }
+            }
+        }
+    }
+
+    private void equipWeapon(int x) {
+        if(pack.size() >= x) {
+            if(pack.get(x-1).getClass() == Sword.class) {
+                for(int i=0; i<dungeon.creatures.size(); i++) {
+                    if(dungeon.creatures.get(i).getClass() == Player.class) {
+                        Player player = (Player) dungeon.creatures.get(i);
+                        player.setWeapon((Sword)pack.get(x-1));
+                        clearRow(dungeon.gameHeight);
+                        displayString("Equiped weapon: "+pack.get(x-1).name, 6, dungeon.gameHeight);
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void initPack() {
+        for(int i=0; i<dungeon.creatures.size(); i++) {
+            if(dungeon.creatures.get(i).getClass() == Player.class) {
+                Player player = (Player) dungeon.creatures.get(i);
+                if(player.armor != null) {
+                    pack.add(player.armor);
+                }
+                if(player.sword != null) {
+                    pack.add(player.sword);
+                }
+            }
+        }
     }
 
     private void addItem(int x, int y){
