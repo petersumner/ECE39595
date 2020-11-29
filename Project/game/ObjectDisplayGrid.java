@@ -95,14 +95,12 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     equipArmor(Character.getNumericValue(key));
                     last = 0;
                 } else if (last == 'd' && endGame == false) {
-                    if(pack.size() <= Character.getNumericValue(key)){
+                    if(pack.size() <= Character.getNumericValue(key)) {
                         dropItem(temp.posX, temp.posY, Character.getNumericValue(key));
                     }
                     last = 0;
                 } else if (last == 'r' && endGame == false) {
-                    if(pack.size() <= key && pack.get(key).getClass() == Scroll.class){
-                        
-                    }
+                    readScroll(Character.getNumericValue(key));
                     last = 0;
                 }
             }
@@ -210,8 +208,11 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
             if(pack.size() == 0) { displayString("pack is empty", 6, dungeon.gameHeight-2); } 
             else {
                 for(int i=0; i<pack.size(); i++) {
-                    displayString(Integer.toString(i+1), 6+i*13, dungeon.gameHeight-2);
-                    displayString(pack.get(i).name, 8+i*13, dungeon.gameHeight-2);
+                    if(pack.get(i).getClass() != Scroll.class) {
+                        displayString(Integer.toString(i+1)+":"+Integer.toString(pack.get(i).intValue)+" "+pack.get(i).toString(), 6+i*13, dungeon.gameHeight-2);
+                    } else {
+                        displayString(Integer.toString(i+1)+": "+pack.get(i).toString(), 6+i*13, dungeon.gameHeight-2);
+                    }
                 }
             }
         }
@@ -245,7 +246,31 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                 }
             }
         }
+    }
 
+    private void readScroll(int x) {
+        if(pack.size() >= x) {
+            if(pack.get(x-1).getClass() == Scroll.class) {
+                Scroll scroll = (Scroll) pack.get(x-1);
+                clearRow(dungeon.gameHeight);
+                displayString(scroll.action.msg, 6, dungeon.gameHeight);
+                pack.remove(x-1);
+                for(int i=0; i<dungeon.creatures.size(); i++) {
+                    if(dungeon.creatures.get(i).getClass() == Player.class) {
+                        Player player = (Player) dungeon.creatures.get(i);
+                        if(scroll.action.c == 'a') {
+                            Armor armor = player.armor;
+                            armor.setIntValue(armor.intValue + scroll.action.v);
+                        } else if(scroll.action.c == 's') {
+                            Sword sword = player.sword;
+                            sword.setIntValue(sword.intValue + scroll.action.v);
+                        }
+                        break;
+                    }
+                }
+                
+            }
+        }
     }
 
     private void initPack() {
