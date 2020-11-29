@@ -95,9 +95,7 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     equipArmor(Character.getNumericValue(key));
                     last = 0;
                 } else if (last == 'd' && endGame == false) {
-                    if(pack.size() <= Character.getNumericValue(key)) {
-                        dropItem(temp.posX, temp.posY, Character.getNumericValue(key));
-                    }
+                    dropItem(temp.posX, temp.posY, Character.getNumericValue(key));
                     last = 0;
                 } else if (last == 'r' && endGame == false) {
                     readScroll(Character.getNumericValue(key));
@@ -161,27 +159,35 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
         for(int i=0; i<dungeon.creatures.size(); i++) {
             if(dungeon.creatures.get(i).getClass() == Player.class) {
                 Player player = (Player) dungeon.creatures.get(i);
-                System.out.println("FIGHT: "+monster.hp+" "+player.maxHit);
                 monster.setHp(monster.hp - player.maxHit);
                 clearRow(dungeon.gameHeight);
                 displayString(monster.name+": -"+player.maxHit+"HP", 6, dungeon.gameHeight);
                 if(monster.hp < 1) {
-                    doActions(monster, "death");
+                    doActions(monster, "death", "death");
+                    for(int k=0; k<player.creatureActions.size(); k++) {
+                        if(!(player.creatureActions.get(k).type.equals("death"))) {
+                            doActions(player, player.creatureActions.get(k).type, player.creatureActions.get(k).name);
+                        }
+                    }
                     return;
                 }
                 player.setHp(player.hp - monster.maxHit);
                 if(player.hp < 1) {
                     player.setHp(0);
-                    doActions(player, "death");
+                    doActions(player, "death", "death");
                 }
-                if(endGame == false) {
-                    displayString("Player: -"+monster.maxHit+"HP", 22, dungeon.gameHeight);
+                if(endGame == false) { 
+                    displayString("Player: -"+monster.maxHit+"HP", 22, dungeon.gameHeight); 
                 }
             }
         }
     }
 
-    private void doActions(Creature creature, String type) {
+    private void doActions(Creature creature, String type, String name) {
+        if(type.equals("death")) {
+            if(creature.getClass() == Player.class) { endGame = true; } 
+            else { dungeon.creatures.remove(creature); }
+        }
         for(int i=0; i<creature.creatureActions.size(); i++) {
             CreatureAction action = creature.creatureActions.get(i);
             if(action.type.equals(type)) {
@@ -189,14 +195,15 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
                     clearRow(dungeon.gameHeight);
                     displayString(action.msg, 6, dungeon.gameHeight); 
                 }
-                if(type.equals("death")) {
-                    if(creature.getClass() == Player.class) {
-                        endGame = true;
-                    } else {
-                        dungeon.creatures.remove(creature);
+                if(type.equals("hit")) {
+                    if(name.equals("DropPack")) {
+                        dropItem(creature.posX, creature.posY, pack.size());
                     }
-                } else if(type.equals("hit")) {
-
+                } else if(type.equals("death")) {
+                    if(action.name.equals("ChangeDisplayedType")) {
+                        Player player = (Player) creature;
+                        player.setDisplayedType(action.c);
+                    }
                 }
             }
         }
@@ -297,11 +304,13 @@ public class ObjectDisplayGrid extends JFrame implements KeyListener {
     }
 
     private void dropItem(int x, int y, int i) {
-        Item item = pack.get(i-1);
-        item.posX = x;
-        item.posY = y;
-        dungeon.items.add(item);
-        pack.remove(i-1);
+        if(pack.size() >= i && i>0) {
+            Item item = pack.get(i-1);
+            item.posX = x;
+            item.posY = y;
+            dungeon.items.add(item);
+            pack.remove(i-1);
+        }
     }
 
     public void displayString(String msg, int x, int y){
