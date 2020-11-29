@@ -27,19 +27,17 @@ public class Rogue extends Canvas implements Runnable {
         this.start();
     }
 
-    public synchronized void start(){
+    public synchronized void start() {
         thread = new Thread(this);
         thread.start();
         running = true;
     }
 
-    public synchronized void stop(){
-        try{
+    public synchronized void stop() {
+        try {
             thread.join();
             running = false;
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        } catch(Exception e) { e.printStackTrace(); }
     }
 
     public void run() {
@@ -47,19 +45,13 @@ public class Rogue extends Canvas implements Runnable {
         long lastTime = System.nanoTime();
         double delta = 0;
         long timer = System.currentTimeMillis();
-        while(running){
+        while(running) {
             long now = System.nanoTime();
             delta += (now - lastTime) / TIMEPERLOOP;
             lastTime = now;
-            while(delta >= 1) {
-                delta--;
-            }
-            if(running)
-                display();
-
-            if(System.currentTimeMillis() - timer > 1000){
-                timer += 1000;
-            }
+            while(delta >= 1) { delta--; }
+            if(running) { display(); }
+            if(System.currentTimeMillis() - timer > 1000) { timer += 1000; }
         }
         stop();
     }
@@ -123,8 +115,9 @@ public class Rogue extends Canvas implements Runnable {
             int x = dungeon.creatures.get(i).posX;
             int y = dungeon.creatures.get(i).posY;
             if (dungeon.creatures.get(i).getClass() == Player.class) { 
-                hp = dungeon.creatures.get(i).hp;
-                displayGrid.addObjectToDisplay(new Char('@'), x, y); 
+                Player player = (Player) dungeon.creatures.get(i);
+                hp = player.hp;
+                displayGrid.addObjectToDisplay(new Char(player.displayedType), x, y); 
             } 
             else { displayGrid.addObjectToDisplay(new Char(dungeon.creatures.get(i).type), x, y); }
         }
@@ -141,7 +134,7 @@ public class Rogue extends Canvas implements Runnable {
     }
 
     public static void main(String[] args) throws Exception {
-        String fileName = "src/xmlFiles/testDrawing.xml";
+        String fileName = "src/xmlFiles/dungeon.xml";
         SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
