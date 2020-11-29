@@ -19,4 +19,8 @@ public class Armor extends Item {
         serial = _serial;
         System.out.println("   room: " + room + "\n   serial: " + serial);
     }
+
+    public String toString() {
+        return "Armor";
+    }
 }
