@@ -44,6 +44,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             int width = Integer.parseInt(attributes.getValue("width"));
             int gameHeight = Integer.parseInt(attributes.getValue("gameHeight"));
             dungeon = new Dungeon(name, width, gameHeight);
+
         } else if (qName.equalsIgnoreCase("Rooms")) {
 
         } else if (qName.equalsIgnoreCase("Room")) {
@@ -89,9 +90,14 @@ public class DungeonXMLHandler extends DefaultHandler {
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Armor armor = new Armor(name);
             armor.setId(roomNum, serial);
-            dungeon.addItem(armor);
             objectBeingParsed = armor;
             itemBeingParsed = armor;
+            if(creatureBeingParsed.getClass() == Player.class) {
+                Player player = (Player) creatureBeingParsed;
+                player.setArmor(armor);
+            } else {
+                dungeon.addItem(armor);
+            }
 
         } else if (qName.equalsIgnoreCase("Sword")) {
             String name = attributes.getValue("name");
@@ -99,9 +105,14 @@ public class DungeonXMLHandler extends DefaultHandler {
             int serial = Integer.parseInt(attributes.getValue("serial"));
             Sword sword = new Sword(name);
             sword.setId(roomNum, serial);
-            dungeon.addItem(sword);
             objectBeingParsed = sword;
             itemBeingParsed = sword;
+            if(creatureBeingParsed.getClass() == Player.class) {
+                Player player = (Player) creatureBeingParsed;
+                player.setWeapon(sword);
+            } else {
+                dungeon.addItem(sword);
+            }
 
         } else if (qName.equalsIgnoreCase("Scroll")) {
             String name = attributes.getValue("name");
@@ -120,7 +131,7 @@ public class DungeonXMLHandler extends DefaultHandler {
             action.setName(name);
             action.setType(type);
             creatureBeingParsed.addCreatureAction(action);
-            if(type.equals("death")) { creatureBeingParsed.setDeathAction(action); }
+            //if(type.equals("death")) { creatureBeingParsed.setDeathAction(action); }
             actionBeingParsed = action;
         
         } else if (qName.equalsIgnoreCase("ItemAction")) {
@@ -131,36 +142,21 @@ public class DungeonXMLHandler extends DefaultHandler {
             action.setType(type);
             itemBeingParsed.setAction(action);
             actionBeingParsed = action;
-            
-        } else if (qName.equalsIgnoreCase("posX")) {
-            bPosX = true;
-        } else if (qName.equalsIgnoreCase("posY")) {
-            bPosY = true;
-        } else if (qName.equalsIgnoreCase("type")) {
-            bType = true;
-        } else if (qName.equalsIgnoreCase("visible")) {
-            bVisible = true;
-        } else if (qName.equalsIgnoreCase("hp")) {
-            bHp = true;
-        } else if (qName.equalsIgnoreCase("hpMoves")) {
-            bHpMoves = true; 
-        } else if (qName.equalsIgnoreCase("maxhit")) {
-            bMaxHit = true;
-        } else if (qName.equalsIgnoreCase("actionMessage")) {
-            bActionMessage = true;
-        } else if (qName.equalsIgnoreCase("width")) {
-            bWidth = true;
-        } else if (qName.equalsIgnoreCase("height")) {
-            bHeight = true;
-        } else if (qName.equalsIgnoreCase("actionIntValue")) {
-            bActionIntValue = true; 
-        } else if (qName.equalsIgnoreCase("itemIntValue")) {
-            bItemIntValue = true;
-        } else if (qName.equalsIgnoreCase("actionCharValue")) {
-            bActionCharValue = true;
-        } else {
-            System.out.println("Unknown qname: " + qName);
-        }
+        } 
+        else if (qName.equalsIgnoreCase("posX")) { bPosX = true; } 
+        else if (qName.equalsIgnoreCase("posY")) { bPosY = true; } 
+        else if (qName.equalsIgnoreCase("type")) { bType = true; } 
+        else if (qName.equalsIgnoreCase("visible")) { bVisible = true; }
+        else if (qName.equalsIgnoreCase("hp")) { bHp = true; } 
+        else if (qName.equalsIgnoreCase("hpMoves")) { bHpMoves = true; } 
+        else if (qName.equalsIgnoreCase("maxhit")) { bMaxHit = true; } 
+        else if (qName.equalsIgnoreCase("actionMessage")) { bActionMessage = true; } 
+        else if (qName.equalsIgnoreCase("width")) { bWidth = true; } 
+        else if (qName.equalsIgnoreCase("height")) { bHeight = true; } 
+        else if (qName.equalsIgnoreCase("actionIntValue")) { bActionIntValue = true; } 
+        else if (qName.equalsIgnoreCase("itemIntValue")) { bItemIntValue = true; } 
+        else if (qName.equalsIgnoreCase("actionCharValue")) { bActionCharValue = true; } 
+        else { System.out.println("Unknown qname: " + qName); }
         data = new StringBuilder();
     }
 
